@@ -97,7 +97,7 @@ const onLoad = (fetchedData, page) => {
   if (validatedPage === lastPage) {
     window.history.pushState(null, null, `?page=${validatedPage}`);
     renderPosts(fetchedData.slice(0, validatedPage*minPostsPerPage));
-    loadMoreButton.classList.add("hide");
+    loadMoreButton.classList.add("hide")
     return fetchedData.slice(0, validatedPage*minPostsPerPage);
   }
 
@@ -106,6 +106,9 @@ const onLoad = (fetchedData, page) => {
 
 const onLoadMore = (fetchedData, currentPage) => {
   renderPosts(fetchedData.slice(0, currentPage*minPostsPerPage));
+  
+  // TODO replace with computed value
+  if (currentPage === 17) return loadMoreButton.classList.add("hide")
   return fetchedData.slice(0, currentPage*minPostsPerPage);
 }
 
@@ -119,15 +122,18 @@ loadMoreButton.addEventListener("click", (e) => {
   } else {
     window.history.pushState('', '', `?page=${formatPageParam+1}`);
   }
-  
-  if (pageParam === 17) {
-    loadMoreButton.classList.add("hide")
-  }
-
-  
+ 
   const params = new URLSearchParams(window.location.search);
   pageParam = params.get('page');
-  fetchPosts(pageParam)
+ 
+  // TODO replace 17 with computed value
+  if (pageParam === '17') {
+    fetchPosts(pageParam)
+    loadMoreButton.classList.add("hide")
+  } else {
+    fetchPosts(pageParam)
+  }
+  
 })
 
 const renderPosts = (data) => {
