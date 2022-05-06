@@ -1,3 +1,11 @@
 h1, h2 {
     font-family: Roboto;
 }
+
+.load-more-btn {
+    display: block;
+}
+
+.load-more-btn.hide {
+    display: none;
+}

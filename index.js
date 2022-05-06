@@ -42,14 +42,14 @@ const postsContainer = document.getElementById("posts-container");
 const loadMoreButton = document.getElementById("load-more-btn");
 
 const params = new URLSearchParams(window.location.search);
-const digitsRegex = /\d+/g;
 let pageParam = params.get('page');
+
+const digitsRegex = /\d+/g;
 
 const minPostsPerPage = 6;
 const pageByDefault = 1;
-const lastPage = 10;
 
-function fetchPosts(page) {
+const fetchPosts = (page) => {
   fetch(`https://jsonplaceholder.typicode.com/posts`)
     .then((response => response.json()))
     .then(json => onLoad(json, page))
@@ -57,50 +57,80 @@ function fetchPosts(page) {
 
 fetchPosts(pageParam);
 
-// function validatePageParam(page) {
-//   if (!page?.match(digitsRegex)) {
-//     return null;
-//   } else if (page < 1) {
-//     return null;
-//   } else if (page > lastPage) {
-//     return lastPage
-//   } else {
-//     return true;
-//   }
-// }
-
-function onLoad(val, page) {
-  if (!page) {
-    renderPosts(val.slice(0, minPostsPerPage));
-  } else {
-    onLoadMore(val, page)
+const validatePageParam = (data, page) => {
+  const params = new URLSearchParams(window.location.search);
+  const isPagePassed = params.has('page');
+  
+  const lastPage = Math.ceil(data.length/minPostsPerPage);
+  const isDigit = isPagePassed && !!page.match(digitsRegex);
+  const isNegative = isPagePassed && page < 1;
+  
+  if (!isDigit || isNegative || (pageParam && false)) {
+    return '/'
   }
+  
+  if (pageParam > lastPage) {
+    return lastPage;
+  }
+  
+  return page;
 }
 
-function onLoadMore(val, currentPage) {
-  renderPosts(val.slice(0, currentPage*minPostsPerPage));
-  return val.slice(0, currentPage*minPostsPerPage);
+const onLoad = (fetchedData, page) => {
+  const validatedPage = validatePageParam(fetchedData, page);
+  const lastPage = Math.ceil(fetchedData.length/minPostsPerPage);
+  
+  const params = new URLSearchParams(window.location.search);
+  
+  if (!params.has('page')) {
+    renderPosts(fetchedData.slice(0, minPostsPerPage));
+    return fetchedData.slice(0, validatedPage*minPostsPerPage);
+  }
+  
+  if (validatedPage === '/') {
+    window.history.pushState(null, null, validatedPage);
+    renderPosts(fetchedData.slice(0, minPostsPerPage));
+    pageParam = pageByDefault;
+    return fetchedData.slice(0, validatedPage*minPostsPerPage);
+  }
+  
+  if (validatedPage === lastPage) {
+    window.history.pushState(null, null, `?page=${validatedPage}`);
+    renderPosts(fetchedData.slice(0, validatedPage*minPostsPerPage));
+    loadMoreButton.classList.add("hide");
+    return fetchedData.slice(0, validatedPage*minPostsPerPage);
+  }
+
+  onLoadMore(fetchedData, validatedPage)
+}
+
+const onLoadMore = (fetchedData, currentPage) => {
+  renderPosts(fetchedData.slice(0, currentPage*minPostsPerPage));
+  return fetchedData.slice(0, currentPage*minPostsPerPage);
 }
 
 loadMoreButton.addEventListener("click", (e) => {
   e.preventDefault();
-  
+
   const formatPageParam = parseFloat(pageParam);
   
   if (!pageParam) {
-    redirect(`?page=${pageByDefault+1}`);
+    window.history.pushState(null, null, `?page=${pageByDefault+1}`);
   } else {
-    redirect(`?page=${formatPageParam+1}`);
+    window.history.pushState('', '', `?page=${formatPageParam+1}`);
+  }
+  
+  if (pageParam === 17) {
+    loadMoreButton.classList.add("hide")
   }
 
   
   const params = new URLSearchParams(window.location.search);
   pageParam = params.get('page');
-  
   fetchPosts(pageParam)
 })
 
-function renderPosts(data) {
+const renderPosts = (data) => {
   let list = data.map(item => `
     <div class="container__post-item">
         <h1>Post number ${item.id}</h1>
