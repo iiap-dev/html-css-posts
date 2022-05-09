@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="index.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
-    <title>Title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="/dist/style.css"/>
+	<title>Title</title>
 </head>
 <body>
 <div id="app">
-    <div class="posts-container container" id="posts-container"></div>
-    <button class="load-more-btn" id="load-more-btn">Load More</button>
+	<header class="header">
+		<!--		<div class="flex flex-column flex-justify-center menu-overlay"></div>-->
+		<nav class="flex flex-justify-between flex-items-center header__nav header__nav--change-padding-x">
+			<a href="/" class="header__logo">
+				<img src="images/logo.svg" alt="Landie">
+			</a>
+			
+			<div class="header__menu hide-for-desktop "> <!-- it was a here-->
+				<div id="hamburger-btn" class="header__hamburger-btn">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			
+			<div class="header__links hide-for-mobile change-order">
+				<a href="#">Home</a>
+				<a href="#">About</a>
+				<a href="#">Contacts</a>
+			</div>
+			
+			<a href="#" class="button header__button hide-for-mobile">Buy Now</a>
+		</nav>
+		
+		<div id="menu-content" class="header__menu-content flex flex-column flex-justify-center">
+			<a href="#">Home</a>
+			<a href="#">About</a>
+			<a href="#">Contacts</a>
+		</div>
+	</header>
+	
+	<section class="hero"> <!-- background-image: figure -->
+		<div class="hero__image"></div>
+		<div class="hero__text"></div>
+	</section>
+	
+	<div id="posts-container"></div>
+	<button id="load-more-btn">Load More</button>
 </div>
+
+<script src="app/js/script.js"></script>
 </body>

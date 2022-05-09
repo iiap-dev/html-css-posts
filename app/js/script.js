@@ -38,8 +38,11 @@ https://example.com/?page=3&search=code - show only posts (from the first 18 pos
 */
 
 // Write Javascript code!
-const postsContainer = document.getElementById("posts-container");
-const loadMoreButton = document.getElementById("load-more-btn");
+const hamburgerButton = document.querySelector("#hamburger-btn");
+const menuContent = document.querySelector("#menu-content");
+const body = document.querySelector("body")
+const postsContainer = document.querySelector("#posts-container");
+const loadMoreButton = document.querySelector("#load-more-btn");
 
 const params = new URLSearchParams(window.location.search);
 let pageParam = params.get('page');
@@ -108,7 +111,7 @@ const onLoadMore = (fetchedData, currentPage) => {
   renderPosts(fetchedData.slice(0, currentPage*minPostsPerPage));
   
   // TODO replace with computed value
-  if (currentPage === 17) return loadMoreButton.classList.add("hide")
+  if (currentPage === '17') return loadMoreButton.classList.add("hide")
   return fetchedData.slice(0, currentPage*minPostsPerPage);
 }
 
@@ -146,3 +149,22 @@ const renderPosts = (data) => {
   `).join(" ")
   postsContainer.innerHTML = list;
 }
+
+hamburgerButton.addEventListener('click', () => {
+  console.log('open hamburger');
+  
+  if (hamburgerButton.classList.contains('active')) {
+    hamburgerButton.classList.remove("active");
+    
+    menuContent.classList.remove("fade-in");
+    menuContent.classList.add("fade-out");
+  
+    body.classList.remove("disable-scrolling");
+  } else {
+    hamburgerButton.classList.add("active");
+    menuContent.classList.remove("fade-out")
+    menuContent.classList.add("fade-in");
+  
+    body.classList.add("disable-scrolling");
+  }
+})
