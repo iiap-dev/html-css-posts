@@ -3,6 +3,7 @@
   &__nav {
     position: relative;
     padding: 0.5625rem 1.25rem;
+    z-index: 2;
 
     &--change-padding-x {
       @include breakpoint-up(large) {
@@ -12,13 +13,14 @@
   }
 
   &__menu-content {
+    z-index: 1;
     opacity: 0;
     visibility: hidden;
     flex-wrap: nowrap;
     align-items: center;
     position: absolute;
     padding: 20px;
-    top: 60px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;

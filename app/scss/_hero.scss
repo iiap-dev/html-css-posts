@@ -1,0 +1,91 @@
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  &::before {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background: url("/images/figure.svg");
+  }
+
+  &.desktop {
+    @include breakpoint-up(large) {
+      &::before {
+        background-size: 70%;
+        background-position: right top;
+        background-repeat: no-repeat;
+      }
+    }
+
+    @include breakpoint-up(xlarge) {
+      //&::after {
+      //  content: "";
+      //  position: absolute;
+      //  right: -65px;
+      //  width: 50%;
+      //  height: 69%;
+      //  background-repeat: no-repeat !important;
+      //  background-size: 100%;
+      //  background-position: right bottom;
+      //  background: url(/images/hero-group.svg);
+      //}
+
+      &::before {
+        background-size: 71% 99%;
+        background-position: right top;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    min-width: 350px;
+    max-width: 600px;
+    width: 100%;
+    justify-content: center;
+
+    &.desktop {
+      @include breakpoint-up(large) {
+        padding-left: 163px;
+        align-self: self-start;
+        padding-top: 15%;
+        max-width: 64%;
+        width: 70%;
+      }
+
+      @include breakpoint-up(xlarge) {
+        padding-left: 163px;
+        align-self: self-start;
+        padding-top: 20%;
+        max-width: 46%;
+        width: 80%;
+      }
+    }
+
+    h1 {
+      color: $veryDarkBlue;
+      letter-spacing: 0.0625rem;
+      line-height: 4.125rem; // 66px
+      font-weight: 500;
+    }
+
+    p {
+      font-size: $font-lg;
+      margin-bottom: 70px;
+    }
+  }
+}
