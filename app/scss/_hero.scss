@@ -15,7 +15,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background: url("/images/figure.svg");
+    background-color: rgba(231, 236, 255, 0.5);
   }
 
   &.desktop {
@@ -23,27 +23,37 @@
       &::before {
         background-size: 70%;
         background-position: right top;
-        background-repeat: no-repeat;
+        background-repeat: no-repeat !important;
+        background-image: url("/images/figure.svg");
+        background-color: transparent;
       }
     }
 
     @include breakpoint-up(xlarge) {
-      //&::after {
-      //  content: "";
-      //  position: absolute;
-      //  right: -65px;
-      //  width: 50%;
-      //  height: 69%;
-      //  background-repeat: no-repeat !important;
-      //  background-size: 100%;
-      //  background-position: right bottom;
-      //  background: url(/images/hero-group.svg);
-      //}
-
       &::before {
         background-size: 71% 99%;
         background-position: right top;
+        background-repeat: no-repeat !important;
+        background-image: url("/images/figure.svg");
+        background-color: transparent;
+      }
+    }
+  }
+
+  &.mobile {
+    @include breakpoint-down(medium) {
+      &::before {
+        z-index: -1;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        background-color: rgba(231, 236, 255, 0.5);
       }
     }
   }
@@ -52,7 +62,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding: 0 20px 10px;
     min-width: 350px;
     max-width: 600px;
     width: 100%;
@@ -86,6 +96,49 @@
     p {
       font-size: $font-lg;
       margin-bottom: 70px;
+    }
+  }
+
+  .content {
+
+    .buttons-wrapper {
+
+      :nth-child(2) {
+        margin-top: 15px;
+      }
+
+      &__button {
+        padding: 5px 0;
+        text-align: center;
+        line-height: 1.625rem; // 26px
+
+        &--light {
+          line-height: 1.4rem;
+          background: transparent;
+          padding: 5px 0;
+          border: 2px solid $veryDarkBlue;
+          color: $veryDarkBlue;
+        }
+      }
+
+      &.desktop-buttons {
+        @include breakpoint-up(medium) {
+          flex-direction: row;
+          width: 100%;
+
+          :nth-child(1) {
+            margin-right: 30px;
+            max-width: 189px;
+            width: 100%;
+          }
+
+          :nth-child(2) {
+            margin-top: 0;
+            max-width: 189px;
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }
