@@ -30,6 +30,12 @@ h1 {
   margin: 0 0 20px;
 }
 
+h2 {
+  font-size: 22px;
+  margin: 0 0 10px;
+  line-height: 32px;
+}
+
 p {
   margin: 0;
 }
@@ -85,5 +91,43 @@ button, .button {
 .change-order {
   @include breakpoint-up(large) {
     order: -1;
+  }
+}
+
+.change-font-size {
+  @include breakpoint-up(medium) {
+    font-size: 50px;
+  }
+  @include breakpoint-down(medium) {
+    font-size: 30px;
+  }
+}
+
+.spacing {
+  @include breakpoint-up(medium) {
+    padding: 0 163px;
+  }
+}
+
+.stretch {
+  @include breakpoint-up(medium) {
+    margin-right: -163px !important;
+    margin-left: -163px !important;
+  }
+}
+
+
+.load-more-btn {
+  padding: 5px 0;
+  text-align: center;
+  line-height: 1.625rem; // 26px
+  max-width: 189px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.remove-spacing {
+  @include breakpoint-up(medium) {
+    padding: 0 !important;
   }
 }

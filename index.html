@@ -41,7 +41,7 @@
 	</header>
 	<section class="desktop hero">
 		<div class="desktop hero__content content">
-			<h1>Introduce Your Product Quickly & Effectively</h1>
+			<h1 class="change-font-size">Introduce Your Product Quickly & Effectively</h1>
 			<p>
 				Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
 				sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
@@ -53,9 +53,10 @@
 			</div>
 		</div>
 	</section>
-	
-	<div id="posts-container"></div>
-	<button id="load-more-btn">Load More</button>
+	<div class="flex flex-column flex-justify-center">
+		<div id="posts-wrapper" class="posts-wrapper remove-spacing"></div>
+		<button id="load-more-btn" class="load-more-btn">Load More</button>
+	</div>
 </div>
 
 <script src="app/js/script.js"></script>

@@ -41,7 +41,7 @@ https://example.com/?page=3&search=code - show only posts (from the first 18 pos
 const hamburgerButton = document.querySelector("#hamburger-btn");
 const menuContent = document.querySelector("#menu-content");
 const body = document.querySelector("body")
-const postsContainer = document.querySelector("#posts-container");
+const postsContainer = document.querySelector(".posts-wrapper");
 const loadMoreButton = document.querySelector("#load-more-btn");
 
 const params = new URLSearchParams(window.location.search);
@@ -64,7 +64,7 @@ const validatePageParam = (data, page) => {
   const params = new URLSearchParams(window.location.search);
   const isPagePassed = params.has('page');
   
-  const lastPage = Math.ceil(data.length/minPostsPerPage);
+  const lastPage = Math.ceil(data.length / minPostsPerPage);
   const isDigit = isPagePassed && !!page.match(digitsRegex);
   const isNegative = isPagePassed && page < 1;
   
@@ -81,54 +81,54 @@ const validatePageParam = (data, page) => {
 
 const onLoad = (fetchedData, page) => {
   const validatedPage = validatePageParam(fetchedData, page);
-  const lastPage = Math.ceil(fetchedData.length/minPostsPerPage);
+  const lastPage = Math.ceil(fetchedData.length / minPostsPerPage);
   
   const params = new URLSearchParams(window.location.search);
   
   if (!params.has('page')) {
     renderPosts(fetchedData.slice(0, minPostsPerPage));
-    return fetchedData.slice(0, validatedPage*minPostsPerPage);
+    return fetchedData.slice(0, validatedPage * minPostsPerPage);
   }
   
   if (validatedPage === '/') {
     window.history.pushState(null, null, validatedPage);
     renderPosts(fetchedData.slice(0, minPostsPerPage));
     pageParam = pageByDefault;
-    return fetchedData.slice(0, validatedPage*minPostsPerPage);
+    return fetchedData.slice(0, validatedPage * minPostsPerPage);
   }
   
   if (validatedPage === lastPage) {
     window.history.pushState(null, null, `?page=${validatedPage}`);
-    renderPosts(fetchedData.slice(0, validatedPage*minPostsPerPage));
+    renderPosts(fetchedData.slice(0, validatedPage * minPostsPerPage));
     loadMoreButton.classList.add("hide")
-    return fetchedData.slice(0, validatedPage*minPostsPerPage);
+    return fetchedData.slice(0, validatedPage * minPostsPerPage);
   }
-
+  
   onLoadMore(fetchedData, validatedPage)
 }
 
 const onLoadMore = (fetchedData, currentPage) => {
-  renderPosts(fetchedData.slice(0, currentPage*minPostsPerPage));
+  renderPosts(fetchedData.slice(0, currentPage * minPostsPerPage));
   
   // TODO replace with computed value
   if (currentPage === '17') return loadMoreButton.classList.add("hide")
-  return fetchedData.slice(0, currentPage*minPostsPerPage);
+  return fetchedData.slice(0, currentPage * minPostsPerPage);
 }
 
 loadMoreButton.addEventListener("click", (e) => {
   e.preventDefault();
-
+  
   const formatPageParam = parseFloat(pageParam);
   
   if (!pageParam) {
-    window.history.pushState(null, null, `?page=${pageByDefault+1}`);
+    window.history.pushState(null, null, `?page=${pageByDefault + 1}`);
   } else {
-    window.history.pushState('', '', `?page=${formatPageParam+1}`);
+    window.history.pushState('', '', `?page=${formatPageParam + 1}`);
   }
- 
+  
   const params = new URLSearchParams(window.location.search);
   pageParam = params.get('page');
- 
+  
   // TODO replace 17 with computed value
   if (pageParam === '17') {
     fetchPosts(pageParam)
@@ -141,30 +141,31 @@ loadMoreButton.addEventListener("click", (e) => {
 
 const renderPosts = (data) => {
   let list = data.map(item => `
-    <div class="container__post-item">
-        <h1>Post number ${item.id}</h1>
-        <h3>${item.title}</h3>
-        <h5>${item.body}</h5>
+    <div class="posts-wrapper__post post spacing">
+      <div class="post__id stretch">Post #${item.id}</div>
+      <div class="post__content">
+          <h2>${item.title}</h2>
+          <p>${item.body}</p>
+      </div>
     </div>
   `).join(" ")
   postsContainer.innerHTML = list;
 }
 
 hamburgerButton.addEventListener('click', () => {
-  console.log('open hamburger');
   
   if (hamburgerButton.classList.contains('active')) {
     hamburgerButton.classList.remove("active");
     
     menuContent.classList.remove("fade-in");
     menuContent.classList.add("fade-out");
-  
+    
     body.classList.remove("disable-scrolling");
   } else {
     hamburgerButton.classList.add("active");
     menuContent.classList.remove("fade-out")
     menuContent.classList.add("fade-in");
-  
+    
     body.classList.add("disable-scrolling");
   }
 })
