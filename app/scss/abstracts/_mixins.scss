@@ -1,0 +1,87 @@
+@use 'sass:map';
+@use 'functions' as fns;
+
+// $breakpoints: (
+//   'small'  : ( min-width:  767px ),
+//   'medium' : ( min-width:  992px ),
+//   'large'  : ( min-width: 1200px )
+// );
+
+// @mixin respond-to($name) {
+//   // If the key exists in the map
+//   @if map-has-key($breakpoints, $name) {
+//     // Prints a media query based on the value
+//     @media #{inspect(map-get($breakpoints, $name))} {
+//       @content;
+//     }
+//   }
+
+//   // If the key doesn't exist in the map
+//   @else {
+//     @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+//         + "Please make sure it is defined in `$breakpoints` map.";
+//   }
+// }
+
+$breakpoints: (
+  'mobile': (max-width: 767px),
+  'tablet': (min-width: 768px) and (max-width: 1023px),
+  'tablet-up': (min-width: 768x),
+  'laptop': (min-width: 1024px) and (max-width: 1339px),
+  'desktop': (min-width: 1440px),
+);
+
+@mixin media($queries) {
+  @if length($queries) == 0 {
+    @content;
+  } @else {
+    $first-key: nth(map-keys($queries), 1);
+
+    @media ($first-key: map-get($queries, $first-key)) {
+      $queries: map-remove($queries, $first-key);
+
+      @include media($queries) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin media-breakpoint($breakpoint) {
+  // Get the query map for $breakpoints map
+  $queries: map-get($breakpoints, $breakpoint);
+
+  // If there is no query called $breakpoint in map, throw an error
+  @if not $queries {
+    @error "No value could be retrieved from `#{$breakpoint}`. "
+    + "Please make sure it is defined in `$breakpoints` map.";
+  }
+
+  // Include the media mixin with $queries
+  @include media($queries) {
+    @content;
+  }
+}
+
+@mixin hover-firefox {
+  @media (-moz-touch-enabled: 0) {
+    @content;
+  }
+}
+
+@mixin transform($property) {
+  transform: $property;
+  -webkit-transform: $property;
+  -moz-transform: $property;
+  -ms-transform: $property;
+}
+
+@mixin root-vars($map, $prefix) {
+  @each $name, $value in $map {
+    #{'--' + $prefix + '-' + $name}: $value;
+  }
+}
+
+@mixin font($font-size: 14px,$font-weight: 400, $line-height: 24px, $font-family: 'Roboto') {
+  font: normal  #{$font-weight} #{$font-size} / #{$line-height} #{$font-family}, serif;
+}

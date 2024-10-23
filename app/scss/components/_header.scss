@@ -1,13 +1,20 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
 .header {
+  @include media-breakpoint('mobile') {
+    background-color: rebeccapurple;
+  }
 
   &__nav {
     position: relative;
-    padding: 0.5625rem 1.25rem;
+    padding: rem(18) 1.25rem;
     z-index: 2;
 
     &--change-padding-x {
       @include breakpoint-up(large) {
-        padding: 0.5625rem 10.3125rem;
+        padding: rem(18) 10.3125rem;
       }
     }
   }
@@ -19,23 +26,23 @@
     flex-wrap: nowrap;
     align-items: center;
     position: absolute;
-    padding: 20px;
+    padding: rem(20);
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     overflow: hidden;
-    background: $white;
+    background: var(--color-white);
     transition: transform 0.4s ease-in-out;
 
     a {
       position: relative;
-      padding: 0.5625rem 10.3125rem;
-      font-size: 18px;
-      color: $blue;
+      padding: rem(18) 10.3125rem;
+      font-size: rem(18);
+      color: var(--color-blue);
 
       &:not(:last-child) {
-        margin-bottom: 60px;
+        margin-bottom: rem(60);
       }
     }
   }
@@ -51,17 +58,17 @@
   }
 
   &__hamburger-btn {
-    width: 25px;
-    height: 25px;
+    width: rem(25);
+    height: rem(25);
     position: relative;
 
     span {
       position: absolute;
       top: 0;
       left: 0;
-      width: 25px;
-      height: 2px;
-      background-color: $blue;
+      width: rem(25);
+      height: rem(2);
+      background-color: var(--color-blue);
       transition: top 0.2s ease-in-out 0.4s, transform 0.4s ease-in-out, opacity 0.2s ease-in-out 0.2s, left 0.2s ease-in-out;
 
       &:nth-child(1) {
@@ -69,11 +76,11 @@
       }
 
       &:nth-child(2), &:nth-child(4) {
-        top: 12.5px;
+        top: 12.5px; // get rid of decimal
       }
 
       &:nth-child(3) {
-        top: 24px;
+        top: rem(24);
       }
     }
 
@@ -102,26 +109,25 @@
 
   &__menu {
     align-self: center;
-    max-height: 38px;
+    max-height: rem(38);
   }
 
   &__links {
-
     a {
       position: relative;
-      color: $blue;
+      color: var(--color-blue);
       transition: color 200ms ease-in-out;
 
       &:not(:last-child) {
-        margin-right: 60px;
+        margin-right: rem(60);
       }
 
       &:hover {
-        text-shadow: $blue 0 0 1px;
+        text-shadow: var(--color-blue) 0 0 rem(1);
         transition: text-shadow 200ms ease-in-out;
 
         @include hover-firefox {
-          text-shadow: $blue 0 0 .2px;
+          text-shadow: var(--color-blue) 0 0 .2px;
           transition: text-shadow 200ms ease-in-out;
         }
       }
@@ -129,7 +135,7 @@
   }
 
   &__button {
-    font-size: $font-sm;
+    font-size: var(--font-sm);
     line-height: 1.125;
     padding: 0.4375rem 3.5rem;
     transition: opacity 200ms ease-in-out;

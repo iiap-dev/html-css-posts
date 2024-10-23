@@ -1,0 +1,34 @@
+@use 'sass:map';
+
+$font-families: (
+  'primary': 'Roboto',
+);
+
+$browser-font-size: 16px;
+$html-font-size: 100%;
+
+$color-palette: (
+  'light-blue': rgba(231, 236, 255, 0.5),
+  'blue': #505F98,
+  'dark-blue': #111B47,
+  'very-dark-blue': #091133,
+  'white': #FFFFFF,
+  'lilac': #37447E,
+  'grey': #5D6970,
+);
+
+$colors: (
+  'light-blue': map.get($color-palette, 'light-blue'),
+  'blue': map.get($color-palette, 'blue'),
+  'dark-blue': map.get($color-palette, 'dark-blue'),
+  'very-dark-blue': map.get($color-palette, 'very-dark-blue'),
+  'white': map.get($color-palette, 'white'),
+  'lilac': map.get($color-palette, 'lilac'),
+  'grey': map.get($color-palette, 'grey'),
+);
+
+$font-sizes: (
+  'sm': 12px,
+  'md': 14px,
+  'lg': 18px,
+)
