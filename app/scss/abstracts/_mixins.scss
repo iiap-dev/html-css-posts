@@ -47,7 +47,7 @@ $breakpoints: (
   }
 }
 
-@mixin media-breakpoint($breakpoint) {
+@mixin query($breakpoint) {
   // Get the query map for $breakpoints map
   $queries: map-get($breakpoints, $breakpoint);
 

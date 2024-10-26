@@ -3,20 +3,16 @@
 @use '../abstracts/mixins' as *;
 
 .header {
-  @include media-breakpoint('mobile') {
-    background-color: rebeccapurple;
-  }
-
   &__nav {
     position: relative;
-    padding: rem(18) 1.25rem;
+    padding: to-rem(18) 1.25rem;
     z-index: 2;
 
-    &--change-padding-x {
-      @include breakpoint-up(large) {
-        padding: rem(18) 10.3125rem;
-      }
-    }
+    // &--change-padding-x {
+    //   @include breakpoint-up(large) {
+    //     padding: to-rem(18) 10.3125rem;
+    //   }
+    // }
   }
 
   &__menu-content {
@@ -26,7 +22,7 @@
     flex-wrap: nowrap;
     align-items: center;
     position: absolute;
-    padding: rem(20);
+    padding: to-rem(20);
     top: 0;
     left: 0;
     right: 0;
@@ -37,12 +33,12 @@
 
     a {
       position: relative;
-      padding: rem(18) 10.3125rem;
-      font-size: rem(18);
+      padding: to-rem(18) 10.3125rem;
+      font-size: to-rem(18);
       color: var(--color-blue);
 
       &:not(:last-child) {
-        margin-bottom: rem(60);
+        margin-bottom: to-rem(60);
       }
     }
   }
@@ -58,16 +54,16 @@
   }
 
   &__hamburger-btn {
-    width: rem(25);
-    height: rem(25);
+    width: to-rem(25);
+    height: to-rem(25);
     position: relative;
 
     span {
       position: absolute;
       top: 0;
       left: 0;
-      width: rem(25);
-      height: rem(2);
+      width: to-rem(25);
+      height: to-rem(2);
       background-color: var(--color-blue);
       transition: top 0.2s ease-in-out 0.4s, transform 0.4s ease-in-out, opacity 0.2s ease-in-out 0.2s, left 0.2s ease-in-out;
 
@@ -80,7 +76,7 @@
       }
 
       &:nth-child(3) {
-        top: rem(24);
+        top: to-rem(24);
       }
     }
 
@@ -109,7 +105,7 @@
 
   &__menu {
     align-self: center;
-    max-height: rem(38);
+    max-height: to-rem(38);
   }
 
   &__links {
@@ -119,11 +115,11 @@
       transition: color 200ms ease-in-out;
 
       &:not(:last-child) {
-        margin-right: rem(60);
+        margin-right: to-rem(60);
       }
 
       &:hover {
-        text-shadow: var(--color-blue) 0 0 rem(1);
+        text-shadow: var(--color-blue) 0 0 to-rem(1);
         transition: text-shadow 200ms ease-in-out;
 
         @include hover-firefox {

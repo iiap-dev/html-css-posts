@@ -28,14 +28,14 @@ a, a:visited, a:hover {
 }
 
 h1 {
-  font-size: rem(40);
-  margin: 0 0 rem(20);
+  font-size: to-rem(40);
+  margin: 0 0 to-rem(20);
 }
 
 h2 {
-  font-size: rem(22);
-  margin: 0 0 rem(10);
-  line-height: rem(32);
+  font-size: to-rem(22);
+  margin: 0 0 to-rem(10);
+  line-height: to-rem(32);
 }
 
 p {
@@ -65,9 +65,9 @@ p {
 // buttons
 button, .button {
   font-weight: 500;
-  font-size: rem(16);
+  font-size: to-rem(16);
   text-align: center;
-  border-radius: rem(2);
+  border-radius: to-rem(2);
   border: 0;
   cursor: pointer;
   color: var(--color-white);
@@ -98,32 +98,32 @@ button, .button {
 
 // .change-font-size {
 //   @include breakpoint-up(medium) {
-//     font-size: rem(50);
+//     font-size: to-rem(50);
 //   }
 //   @include breakpoint-down(medium) {
-//     font-size: rem(30);
+//     font-size: to-rem(30);
 //   }
 // }
 
 // .spacing {
 //   @include breakpoint-up(medium) {
-//     padding: 0 rem(163);
+//     padding: 0 to-rem(163);
 //   }
 // }
 
 // .stretch {
 //   @include breakpoint-up(medium) {
-//     margin-right: rem(-163) !important;
-//     margin-left: rem(-163) !important;
+//     margin-right: to-rem(-163) !important;
+//     margin-left: to-rem(-163) !important;
 //   }
 // }
 
 
 .load-more-btn {
-  padding: rem(5) 0;
+  padding: to-rem(5) 0;
   text-align: center;
-  line-height: rem(26);
-  max-width: rem(189);
+  line-height: to-rem(26);
+  max-width: to-rem(189);
   width: 100%;
   margin: 0 auto;
 }

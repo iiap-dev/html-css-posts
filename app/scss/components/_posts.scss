@@ -1,12 +1,12 @@
 .posts-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 0 rem(20);
+  padding: 0 to-rem(20);
   background: var(--color-light-blue);
-  margin-top: rem(-60);
+  margin-top: to-rem(-60);
 
   &__post {
-    margin-top: rem(40);
+    margin-top: to-rem(40);
     display: flex;
     flex-direction: column;
   }
@@ -14,15 +14,15 @@
   .post {
 
     &__id {
-      font-size: rem(22);
+      font-size: to-rem(22);
       color: var(--color-very-dark-blue);
       background: var(--color-white);
-      min-height: rem(20);
-      margin-left: -rem(20);
-      margin-right: -rem(20);
-      padding: rem(10) rem(20);
+      min-height: to-rem(20);
+      margin-left: -to-rem(20);
+      margin-right: -to-rem(20);
+      padding: to-rem(10) to-rem(20);
       text-align: center;
-      box-shadow: rgba(93, 105, 112, 0.5) 0 rem(2) rem(4);    
+      box-shadow: rgba(93, 105, 112, 0.5) 0 to-rem(2) to-rem(4);    
     }
 
     &__content {
@@ -32,7 +32,7 @@
       }
 
       p {
-        line-height: rem(24);
+        line-height: to-rem(24);
         color: var(--color-grey);
       }
     }
