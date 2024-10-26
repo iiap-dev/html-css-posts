@@ -41,7 +41,7 @@ https://example.com/?page=3&search=code - show only posts (from the first 18 pos
 const hamburgerButton = document.querySelector("#hamburger-btn");
 const menuContent = document.querySelector("#menu-content");
 const body = document.querySelector("body")
-const postsContainer = document.querySelector(".posts-wrapper");
+const postsContainer = document.querySelector(".js-posts-wrapper");
 const loadMoreButton = document.querySelector("#load-more-btn");
 
 const params = new URLSearchParams(window.location.search);

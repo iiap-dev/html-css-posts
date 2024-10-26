@@ -10,11 +10,11 @@
 <body>
 <div id="app">
 	<header class="header">
-		<nav class="flex flex-justify-between flex-items-center header__nav header__nav--change-padding-x">
+		<nav class="header__nav">
 			<a href="/" class="header__logo">
-				<img src="/images/logo.svg" alt="Landie logo">
+				<img src="./resources/images/logo.svg" alt="Landie logo">
 			</a>
-			<div class="header__menu hide-for-desktop ">
+			<div class="header__menu">
 				<div id="hamburger-btn" class="header__hamburger-btn">
 					<span></span>
 					<span></span>
@@ -23,38 +23,38 @@
 				</div>
 			</div>
 			
-			<div class="header__links hide-for-mobile change-order">
+			<div class="header__links">
 				<a href="#">Home</a>
 				<a href="#">About</a>
 				<a href="#">Contacts</a>
 			</div>
 			
-			<a href="#" class="button header__button hide-for-mobile">Buy Now</a>
+			<a href="#" class="header__button">Buy Now</a>
 		</nav>
 		
-		<div id="menu-content" class="header__menu-content flex flex-column flex-justify-center">
+		<div id="menu-content" class="header__menu-content">
 			<a href="#">Home</a>
 			<a href="#">About</a>
 			<a href="#">Contacts</a>
 		</div>
 	</header>
-	<section class="desktop hero">
-		<div class="desktop hero__content content">
-			<h1 class="change-font-size">Introduce Your Product Quickly & Effectively</h1>
+	<section class="hero">
+		<div class="hero__content">
+			<h1>Introduce Your Product Quickly & Effectively</h1>
 			<p>
 				Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
 				sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
 				mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
 			</p>
-			<div class="content__buttons-wrapper flex flex-column buttons-wrapper desktop-buttons">
-				<a href="#" class="button buttons-wrapper__button">Purchase UI Kit</a>
-				<a href="#" class="button buttons-wrapper__button--light">Learn More</a>
+			<div>
+				<a href="#">Purchase UI Kit</a>
+				<a href="#">Learn More</a>
 			</div>
 		</div>
 	</section>
-	<div class="flex flex-column flex-justify-center">
-		<div id="posts-wrapper" class="posts-wrapper remove-spacing"></div>
-		<button id="load-more-btn" class="load-more-btn">Load More</button>
+	<div>
+		<div id="posts-wrapper" class="js-posts-wrapper"></div>
+		<button id="load-more-btn">Load More</button>
 	</div>
 </div>
 

@@ -1,28 +1,6 @@
 @use 'sass:map';
 @use 'functions' as fns;
 
-// $breakpoints: (
-//   'small'  : ( min-width:  767px ),
-//   'medium' : ( min-width:  992px ),
-//   'large'  : ( min-width: 1200px )
-// );
-
-// @mixin respond-to($name) {
-//   // If the key exists in the map
-//   @if map-has-key($breakpoints, $name) {
-//     // Prints a media query based on the value
-//     @media #{inspect(map-get($breakpoints, $name))} {
-//       @content;
-//     }
-//   }
-
-//   // If the key doesn't exist in the map
-//   @else {
-//     @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-//         + "Please make sure it is defined in `$breakpoints` map.";
-//   }
-// }
-
 $breakpoints: (
   'mobile': (max-width: 767px),
   'tablet': (min-width: 768px) and (max-width: 1023px),
@@ -48,16 +26,13 @@ $breakpoints: (
 }
 
 @mixin query($breakpoint) {
-  // Get the query map for $breakpoints map
   $queries: map-get($breakpoints, $breakpoint);
 
-  // If there is no query called $breakpoint in map, throw an error
   @if not $queries {
     @error "No value could be retrieved from `#{$breakpoint}`. "
     + "Please make sure it is defined in `$breakpoints` map.";
   }
 
-  // Include the media mixin with $queries
   @include media($queries) {
     @content;
   }
@@ -82,6 +57,6 @@ $breakpoints: (
   }
 }
 
-@mixin font($font-size: 14px,$font-weight: 400, $line-height: 24px, $font-family: 'Roboto') {
+@mixin font($font-size: 14px, $font-weight: 400, $line-height: 24px, $font-family: 'Roboto') {
   font: normal  #{$font-weight} #{$font-size} / #{$line-height} #{$font-family}, serif;
 }

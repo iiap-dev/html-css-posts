@@ -1,13 +1,10 @@
 @use '../abstracts/functions' as *;
 @use '../abstracts/mixins' as *;
 
-html {
-  font-size: 100%;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
 }
 
 body {
@@ -15,7 +12,7 @@ body {
 
   margin: 0;
   padding: 0;
-  color: var(--color-blue);
+  color: var(--color-blue-1);
   overflow-x: hidden;
 
   &.disable-scrolling {
@@ -23,113 +20,44 @@ body {
   }
 }
 
-a, a:visited, a:hover {
+a,
+a:visited,
+a:hover {
   text-decoration: none;
 }
 
-h1 {
-  font-size: to-rem(40);
-  margin: 0 0 to-rem(20);
-}
-
-h2 {
-  font-size: to-rem(22);
-  margin: 0 0 to-rem(10);
-  line-height: to-rem(32);
-}
-
+h1,
+h2,
 p {
   margin: 0;
 }
 
-.flex {
-  display: flex;
-
-  &-justify-between {
-    justify-content: space-between;
-  }
-
-  &-justify-center {
-    justify-content: center;
-  }
-
-  &-items-center {
-    align-items: center;
-  }
-
-  &-column {
-    flex-direction: column;
-  }
+ul {
+  margin: 0;
+  padding: 0;
 }
 
-// buttons
-button, .button {
-  font-weight: 500;
-  font-size: to-rem(16);
-  text-align: center;
-  border-radius: to-rem(2);
-  border: 0;
-  cursor: pointer;
-  color: var(--color-white);
-  background: var(--color-dark-blue);
+img {
+  display: block;
 }
 
-// // visibility
-// .hide-for-mobile {
-//   // hide for mobile and tablet, hide for medium and down
-//   @include breakpoint-down(medium) {
-//     display: none;
-//   }
-
+// button,
+// .button {
+//   font-weight: 500;
+//   font-size: to-rem(16);
+//   text-align: center;
+//   border-radius: to-rem(2);
+//   border: 0;
+//   cursor: pointer;
+//   color: var(--color-white);
+//   background: var(--color-dark-blue);
 // }
 
-// .hide-for-desktop {
-//   // hide for desktop viewport width
-//   @include breakpoint-up(large) {
-//     display: none;
-//   }
-// }
-
-// .change-order {
-//   @include breakpoint-up(large) {
-//     order: -1;
-//   }
-// }
-
-// .change-font-size {
-//   @include breakpoint-up(medium) {
-//     font-size: to-rem(50);
-//   }
-//   @include breakpoint-down(medium) {
-//     font-size: to-rem(30);
-//   }
-// }
-
-// .spacing {
-//   @include breakpoint-up(medium) {
-//     padding: 0 to-rem(163);
-//   }
-// }
-
-// .stretch {
-//   @include breakpoint-up(medium) {
-//     margin-right: to-rem(-163) !important;
-//     margin-left: to-rem(-163) !important;
-//   }
-// }
-
-
-.load-more-btn {
-  padding: to-rem(5) 0;
-  text-align: center;
-  line-height: to-rem(26);
-  max-width: to-rem(189);
-  width: 100%;
-  margin: 0 auto;
-}
-
-// .remove-spacing {
-//   @include breakpoint-up(medium) {
-//     padding: 0 !important;
-//   }
+// .load-more-btn {
+//   padding: to-rem(5) 0;
+//   text-align: center;
+//   line-height: to-rem(26);
+//   max-width: to-rem(189);
+//   width: 100%;
+//   margin: 0 auto;
 // }
