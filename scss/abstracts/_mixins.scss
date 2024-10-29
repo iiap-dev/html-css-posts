@@ -1,12 +1,12 @@
 @use 'sass:map';
-@use 'functions' as fns;
+@use './functions' as *;
 
 $breakpoints: (
-  'mobile': (max-width: 767px),
-  'tablet': (min-width: 768px) and (max-width: 1023px),
-  'tablet-up': (min-width: 768x),
-  'laptop': (min-width: 1024px) and (max-width: 1339px),
-  'desktop': (min-width: 1440px),
+  'mobile': (max-width: rem(767)),
+  'tablet': (min-width: rem(768)) and (max-width: rem(1023)),
+  'tablet-up': (min-width: rem(768)),
+  'laptop': (min-width: rem(1024)) and (max-width: rem(1339)),
+  'desktop': (min-width: rem(1440)),
 );
 
 @mixin media($queries) {
@@ -55,8 +55,4 @@ $breakpoints: (
   @each $name, $value in $map {
     #{'--' + $prefix + '-' + $name}: $value;
   }
-}
-
-@mixin font($font-size: 14px, $font-weight: 400, $line-height: 24px, $font-family: 'Roboto') {
-  font: normal  #{$font-weight} #{$font-size} / #{$line-height} #{$font-family}, serif;
 }

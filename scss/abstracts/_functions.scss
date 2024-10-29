@@ -11,7 +11,7 @@
   @return  math.div($value, $value * 0 + 1);
 }
 
-@function to-rem($pxValue) {
+@function rem($pxValue) {
   $base-font-size: math.div($browser-font-size, 100) * $html-font-size;
   $unit-removed: strip-unit($pxValue);
   $unit-removed-base: strip-unit(if(is-percentage($html-font-size), $base-font-size, $html-font-size));
