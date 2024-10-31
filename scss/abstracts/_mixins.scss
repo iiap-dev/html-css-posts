@@ -2,10 +2,11 @@
 @use './functions' as *;
 
 $breakpoints: (
-  'mobile': (max-width: rem(767)),
+  'mobile': (max-width: rem(768)),
   'tablet': (min-width: rem(768)) and (max-width: rem(1023)),
   'tablet-up': (min-width: rem(768)),
-  'laptop': (min-width: rem(1024)) and (max-width: rem(1339)),
+  'laptop': (min-width: rem(1024)) and (max-width: rem(1439)),
+  'laptop-up': (min-width: rem(1024)),
   'desktop': (min-width: rem(1440)),
 );
 
@@ -55,4 +56,12 @@ $breakpoints: (
   @each $name, $value in $map {
     #{'--' + $prefix + '-' + $name}: $value;
   }
+}
+
+@mixin font($font-size: null, $font-weight: null, $line-height: null, $font-family: 'Roboto') {
+  font: normal #{$font-weight} #{$font-size} / #{$line-height} #{$font-family}, serif; 
+};
+
+@mixin transition($transition: all, $duration: 0.2s, $type: ease) {
+  transition: $transition $duration $type;
 }

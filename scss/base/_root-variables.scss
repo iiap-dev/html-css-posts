@@ -2,6 +2,5 @@
 
 :root {
   @include abstracts.root-vars(abstracts.$font-families, 'font');
-  @include abstracts.root-vars(abstracts.$font-sizes, 'font-size');
   @include abstracts.root-vars(abstracts.$colors, 'color');
 }

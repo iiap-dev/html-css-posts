@@ -12,32 +12,24 @@
 <body>
 	<div id="app">
 		<header class="header">
-			<nav class="header__nav">
+			<div class="container header__wrapper">
+				<button class="header__drawer-toggle js-drawer-toggle" type="button">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+				<nav class="header__navigation-wrapper navigation js-drawer">
+					<div class="navigation__drawer-overlay js-drawer-overlay"></div>
+					<ul class="navigation__items js-drawer-content">
+						<li class="navigation__item"><a class="navigation__anchor" href="#">Home</a></li>
+						<li class="navigation__item"><a class="navigation__anchor" href="#">About</a></li>
+						<li class="navigation__item"><a class="navigation__anchor" href="#">Contact</a></li>
+					</ul>
+				</nav>
 				<a href="/" class="header__logo">
-					<img src="/resources/images/logo.svg" alt="Landie logo">
+					<img src="/resources/images/logo.svg" alt="Landie Home">
 				</a>
-				<div class="header__menu">
-					<div id="hamburger-btn" class="header__hamburger-btn">
-						<span></span>
-						<span></span>
-						<span></span>
-						<span></span>
-					</div>
-				</div>
-
-				<div class="header__links">
-					<a href="#">Home</a>
-					<a href="#">About</a>
-					<a href="#">Contacts</a>
-				</div>
-
-				<a href="#" class="header__button">Buy Now</a>
-			</nav>
-
-			<div id="menu-content" class="header__menu-content">
-				<a href="#">Home</a>
-				<a href="#">About</a>
-				<a href="#">Contacts</a>
+				<a href="#" class="header__action-button">Buy Now</a>
 			</div>
 		</header>
 		<section class="hero">

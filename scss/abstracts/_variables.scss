@@ -26,9 +26,3 @@ $colors: (
   'white': map.get($color-palette, 'white'),
   'grey': map.get($color-palette, 'grey'),
 );
-
-$font-sizes: (
-  'sm': 12px,
-  'md': 14px,
-  'lg': 18px,
-)

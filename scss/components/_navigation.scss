@@ -1,0 +1,82 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+@use '../base/animation' as *;
+
+.navigation {
+  display: inline-flex;
+  align-items: center;
+
+  &__drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    width: 100vw;
+    height: 100dvh;
+    background-color: transparent;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+
+    &.fade-in {
+      animation: fade-in 0.2s ease-in-out forwards;
+    }
+
+    &.fade-out {
+      animation: fade-out 0.2s ease-in-out backwards;
+    }
+  }
+
+  &__items {
+    display: flex;
+
+    @include query('laptop-up') {
+      gap: 60px;
+    }
+
+    @include query('tablet') {
+      gap: 40px;
+    }
+
+    @include query('mobile') {
+      transform: translateX(-100%);
+      max-width: rem(400);
+      overflow: hidden auto;
+      flex-direction: column;
+      gap: 25px;
+      position: relative;
+      height: 100dvh;
+      height: 100%;
+      width: 100%;
+      background-color: var(--color-white);
+      padding: rem(18) rem(16);
+      will-change: transform, max-width;
+      transition:
+        transform 0.2s ease,
+        max-width 0.2s ease;
+
+      &.drawer-active {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &__item {
+  }
+
+  &__anchor {
+    @include font(rem(14), 400, rem(24));
+    @include transition(color);
+
+    color: var(--color-blue-1);
+
+    @include query('mobile') {
+      @include font(rem(18), 400, rem(27));
+    }
+
+    &:hover {
+      color: var(--color-blue-2);
+    }
+  }
+}

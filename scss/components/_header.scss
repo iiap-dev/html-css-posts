@@ -3,136 +3,74 @@
 @use '../abstracts/mixins' as *;
 
 .header {
-  background-color: rgba(216, 112, 147, 0.479);
-  // &__nav {
-  //   position: relative;
-  //   padding: to-rem(18) 1.25rem;
-  //   z-index: 2;
-  // }
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
 
-  // &__menu-content {
-  //   z-index: 1;
-  //   opacity: 0;
-  //   visibility: hidden;
-  //   flex-wrap: nowrap;
-  //   align-items: center;
-  //   position: absolute;
-  //   padding: to-rem(20);
-  //   top: 0;
-  //   left: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   overflow: hidden;
-  //   background: var(--color-white);
-  //   transition: transform 0.4s ease-in-out;
+  &__drawer-toggle {
+    display: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
 
-  //   a {
-  //     position: relative;
-  //     padding: to-rem(18) 10.3125rem;
-  //     font-size: to-rem(18);
-  //     color: var(--color-blue);
+    span {
+      display: block;
+      width: rem(25);
+      height: 2px;
+      margin: 5px auto;
+      background-color: var(--color-blue-2);
+    }
 
-  //     &:not(:last-child) {
-  //       margin-bottom: to-rem(60);
-  //     }
-  //   }
-  // }
+    @include query('mobile') {
+      display: block;
+    }
+  }
 
-  // &__logo {
+  &__navigation-wrapper {
+    @include query('mobile') {
+      position: fixed;
+      height: 100dvh;
+      width: 100%;
+      top: rem(67);
+      left: 0;
+      max-width: 0;
+      background-color: rgba(102, 51, 153, 0.556);
+      z-index: 9000;
 
-  //   img {
-  //     width: 4.9375rem;
-  //     height: 2.375rem;
+      @include transition(max-width);
 
-  //   }
+      &.drawer-active {
+        max-width: 100%;
+        width: 100vw;
+      }
+    }
+  }
 
-  // }
+  &__logo {
+    width: rem(79);
+  }
 
-  // &__hamburger-btn {
-  //   width: to-rem(25);
-  //   height: to-rem(25);
-  //   position: relative;
+  &__action-button {
+    min-width: rem(160);
+    padding: rem(2) 0;
+    border-radius: rem(2);
+    border: 2px solid var(--color-blue-2);
+    background-color: var(--color-blue-2);
+    color: var(--color-white);
+    text-align: center;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
 
-  //   span {
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //     width: to-rem(25);
-  //     height: to-rem(2);
-  //     background-color: var(--color-blue);
-  //     transition: top 0.2s ease-in-out 0.4s, transform 0.4s ease-in-out, opacity 0.2s ease-in-out 0.2s, left 0.2s ease-in-out;
+    @include font(rem(12), 500, rem(18));
 
-  //     &:nth-child(1) {
-  //       top: 0;
-  //     }
-
-  //     &:nth-child(2), &:nth-child(4) {
-  //       top: 12.5px; // get rid of decimal
-  //     }
-
-  //     &:nth-child(3) {
-  //       top: to-rem(24);
-  //     }
-  //   }
-
-  //   &.active {
-  //     span {
-  //       transition: top 0.2s ease-in-out, transform 0.4s ease-in-out 0.2s, opacity 0.1s ease-in-out 0.2s;
-
-  //       &:nth-child(1) {
-  //         transform-origin: center;
-  //         @include transform( rotateY(90deg) );
-  //       }
-  //       &:nth-child(2) {
-  //         @include transform( rotate(45deg) );
-  //       }
-  //       &:nth-child(4) {
-  //         @include transform( rotate(-45deg) );
-  //       }
-  //       &:nth-child(3) {
-  //         transform-origin: center;
-  //         @include transform( rotateY(90deg) );
-  //       }
-
-  //     }
-  //   }
-  // }
-
-  // &__menu {
-  //   align-self: center;
-  //   max-height: to-rem(38);
-  // }
-
-  // &__links {
-  //   a {
-  //     position: relative;
-  //     color: var(--color-blue);
-  //     transition: color 200ms ease-in-out;
-
-  //     &:not(:last-child) {
-  //       margin-right: to-rem(60);
-  //     }
-
-  //     &:hover {
-  //       text-shadow: var(--color-blue) 0 0 to-rem(1);
-  //       transition: text-shadow 200ms ease-in-out;
-
-  //       @include hover-firefox {
-  //         text-shadow: var(--color-blue) 0 0 .2px;
-  //         transition: text-shadow 200ms ease-in-out;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // &__button {
-  //   font-size: var(--font-sm);
-  //   line-height: 1.125;
-  //   padding: 0.4375rem 3.5rem;
-  //   transition: opacity 200ms ease-in-out;
-
-  //   &:hover {
-  //     opacity: 0.75;
-  //   }
-  // }
+    &:hover {
+      background-color: transparent;
+      color: var(--color-blue-2);
+    }
+  }
 }
