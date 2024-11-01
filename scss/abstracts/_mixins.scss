@@ -1,30 +1,11 @@
-@use 'sass:map';
-@use './functions' as *;
-
 $breakpoints: (
-  'mobile': (max-width: rem(768)),
-  'tablet': (min-width: rem(768)) and (max-width: rem(1023)),
-  'tablet-up': (min-width: rem(768)),
-  'laptop': (min-width: rem(1024)) and (max-width: rem(1439)),
-  'laptop-up': (min-width: rem(1024)),
-  'desktop': (min-width: rem(1440)),
+  'mobile': 'width < 768px',
+  'tablet': 'width >= 768px && width < 1024px',
+  'tablet-up': 'width >= 768px',
+  'laptop': 'width >= 1024px && width < 1440px',
+  'laptop-up': 'width >= 1024px',
+  'desktop': 'width >= 1440px'
 );
-
-@mixin media($queries) {
-  @if length($queries) == 0 {
-    @content;
-  } @else {
-    $first-key: nth(map-keys($queries), 1);
-
-    @media ($first-key: map-get($queries, $first-key)) {
-      $queries: map-remove($queries, $first-key);
-
-      @include media($queries) {
-        @content;
-      }
-    }
-  }
-}
 
 @mixin query($breakpoint) {
   $queries: map-get($breakpoints, $breakpoint);
@@ -34,7 +15,7 @@ $breakpoints: (
     + "Please make sure it is defined in `$breakpoints` map.";
   }
 
-  @include media($queries) {
+  @media($queries) {
     @content;
   }
 }
@@ -45,13 +26,6 @@ $breakpoints: (
   }
 }
 
-@mixin transform($property) {
-  transform: $property;
-  -webkit-transform: $property;
-  -moz-transform: $property;
-  -ms-transform: $property;
-}
-
 @mixin root-vars($map, $prefix) {
   @each $name, $value in $map {
     #{'--' + $prefix + '-' + $name}: $value;
@@ -59,8 +33,10 @@ $breakpoints: (
 }
 
 @mixin font($font-size: null, $font-weight: null, $line-height: null, $font-family: 'Roboto') {
-  font: normal #{$font-weight} #{$font-size} / #{$line-height} #{$font-family}, serif; 
-};
+  font:
+    normal #{$font-weight} #{$font-size} / #{$line-height} #{$font-family},
+    serif;
+}
 
 @mixin transition($transition: all, $duration: 0.2s, $type: ease) {
   transition: $transition $duration $type;

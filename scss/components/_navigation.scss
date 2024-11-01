@@ -7,62 +7,58 @@
   display: inline-flex;
   align-items: center;
 
-  &__drawer-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    max-width: 100%;
-    width: 100vw;
-    height: 100dvh;
-    background-color: transparent;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 0;
+  button {
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
 
-    &.fade-in {
-      animation: fade-in 0.2s ease-in-out forwards;
+    @include query('tablet-up') {
+      display: none;
     }
+  }
 
-    &.fade-out {
-      animation: fade-out 0.2s ease-in-out backwards;
+  &__open {
+    img {
+      width: rem(30);
     }
+  }
+
+  &__open[aria-expanded='true'] {
+    + .navigation__content {
+      translate: 0;
+    }
+  }
+
+  &__content {
+    @include query('mobile') {
+      position: fixed;
+      inset: 0;
+      padding: rem(18) rem(16);
+      background-color: var(--color-white);
+      translate: -100%;
+
+      @include transition(translate, 0.4s, ease-in-out);
+    }
+  }
+
+  &__close {
+    display: block;
+    margin-bottom: rem(100);
   }
 
   &__items {
     display: flex;
 
-    @include query('laptop-up') {
+    @include query('mobile') {
+      flex-direction: column;
+      align-items: center;
+      gap: rem(25);
+    }
+
+    @include query('tablet-up') {
       gap: 60px;
     }
-
-    @include query('tablet') {
-      gap: 40px;
-    }
-
-    @include query('mobile') {
-      transform: translateX(-100%);
-      max-width: rem(400);
-      overflow: hidden auto;
-      flex-direction: column;
-      gap: 25px;
-      position: relative;
-      height: 100dvh;
-      height: 100%;
-      width: 100%;
-      background-color: var(--color-white);
-      padding: rem(18) rem(16);
-      will-change: transform, max-width;
-      transition:
-        transform 0.2s ease,
-        max-width 0.2s ease;
-
-      &.drawer-active {
-        transform: translateX(0);
-      }
-    }
-  }
-
-  &__item {
   }
 
   &__anchor {

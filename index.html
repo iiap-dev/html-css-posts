@@ -13,18 +13,21 @@
 	<div id="app">
 		<header class="header">
 			<div class="container header__wrapper">
-				<button class="header__drawer-toggle js-drawer-toggle" type="button">
-					<span></span>
-					<span></span>
-					<span></span>
-				</button>
-				<nav class="header__navigation-wrapper navigation js-drawer">
-					<div class="navigation__drawer-overlay js-drawer-overlay"></div>
-					<ul class="navigation__items js-drawer-content">
-						<li class="navigation__item"><a class="navigation__anchor" href="#">Home</a></li>
-						<li class="navigation__item"><a class="navigation__anchor" href="#">About</a></li>
-						<li class="navigation__item"><a class="navigation__anchor" href="#">Contact</a></li>
-					</ul>
+				<nav class="navigation">
+					<span id="nav-label" hidden>Navigation</span>
+					<button class="navigation__open js-nav-open" aria-expanded="false" aria-labelledby="nav-label">
+						<img src="/resources/images/hamburger.svg" alt="" width="40" height="24">
+					</button>
+					<div class="navigation__content js-nav-content" role="dialog" aria-labelledby="nav-label">
+						<button class="navigation__close js-nav-close" aria-label="Close">
+							<img src="/resources/images/close.svg" alt="" width="28" height="27">
+						</button>
+						<ul class="navigation__items">
+							<li class="navigation__item"><a class="navigation__anchor" href="#">Home</a></li>
+							<li class="navigation__item"><a class="navigation__anchor" href="#">About</a></li>
+							<li class="navigation__item"><a class="navigation__anchor" href="#">Contact</a></li>
+						</ul>
+					</div>
 				</nav>
 				<a href="/" class="header__logo">
 					<img src="/resources/images/logo.svg" alt="Landie Home">
@@ -32,26 +35,29 @@
 				<a href="#" class="header__action-button">Buy Now</a>
 			</div>
 		</header>
-		<section class="hero">
-			<div class="hero__content">
-				<h1>Introduce Your Product Quickly & Effectively</h1>
-				<p>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
-					sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-					mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-				</p>
-				<div>
-					<a href="#">Purchase UI Kit</a>
-					<a href="#">Learn More</a>
+		<main>
+			<section class="hero">
+				<div class="hero__content">
+					<h1>Introduce Your Product Quickly & Effectively</h1>
+					<p>
+						Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+						Cum
+						sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+						mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+					</p>
+					<div>
+						<a href="#">Purchase UI Kit</a>
+						<a href="#">Learn More</a>
+					</div>
 				</div>
-			</div>
-		</section>
-		<section>
-			<div class="container">
-				<div id="posts-wrapper" class="js-posts-wrapper"></div>
-				<button id="load-more-btn">Load More</button>
-			</div>
-		</section>
+			</section>
+			<section>
+				<div class="container">
+					<div id="posts-wrapper" class="js-posts-wrapper"></div>
+					<button id="load-more-btn">Load More</button>
+				</div>
+			</section>
+		</main>
 	</div>
 
 	<script src="/js/script.js"></script>

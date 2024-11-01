@@ -10,52 +10,11 @@
     padding: 18px 0;
   }
 
-  &__drawer-toggle {
-    display: none;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-
-    span {
-      display: block;
-      width: rem(25);
-      height: 2px;
-      margin: 5px auto;
-      background-color: var(--color-blue-2);
-    }
-
-    @include query('mobile') {
-      display: block;
-    }
-  }
-
-  &__navigation-wrapper {
-    @include query('mobile') {
-      position: fixed;
-      height: 100dvh;
-      width: 100%;
-      top: rem(67);
-      left: 0;
-      max-width: 0;
-      background-color: rgba(102, 51, 153, 0.556);
-      z-index: 9000;
-
-      @include transition(max-width);
-
-      &.drawer-active {
-        max-width: 100%;
-        width: 100vw;
-      }
-    }
-  }
-
   &__logo {
     width: rem(79);
   }
 
   &__action-button {
-    min-width: rem(160);
     padding: rem(2) 0;
     border-radius: rem(2);
     border: 2px solid var(--color-blue-2);
@@ -67,6 +26,14 @@
       color 0.2s ease;
 
     @include font(rem(12), 500, rem(18));
+
+    @include query('mobile') {
+      min-width: rem(140);
+    }
+
+    @include query('tablet-up') {
+      min-width: rem(160);
+    }
 
     &:hover {
       background-color: transparent;

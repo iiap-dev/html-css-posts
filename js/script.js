@@ -38,9 +38,54 @@ https://example.com/?page=3&search=code - show only posts (from the first 18 pos
 */
 
 // Write Javascript code!
-const hamburgerButton = document.querySelector("js-drawer-toggle");
-const menuContent = document.querySelector(".js-drawer-content");
-const body = document.querySelector("body")
+const openNavButton = document.querySelector('.js-nav-open');
+const closeNavButton = document.querySelector('.js-nav-close');
+const media = window.matchMedia('(width < 768px)');
+const navContent = document.querySelector('.js-nav-content');
+const main = document.querySelector('main');
+const body = document.querySelector('body');
+
+function openMobileNavigation() {
+  openNavButton.setAttribute('aria-expanded', 'true');
+  navContent.removeAttribute('inert');
+  navContent.removeAttribute('style');
+  main.setAttribute('inert', '');
+  body.classList.add('disable-scroll');
+  closeNavButton.focus();
+}
+
+function closeMobileNavigation() {
+  openNavButton.setAttribute('aria-expanded', 'false');
+  navContent.setAttribute('inert', '');
+  main.removeAttribute('inert');
+  body.classList.remove('disable-scroll');
+  openNavButton.focus();
+
+  setTimeout(() => {
+    navContent.style.transition = 'none';
+  }, 400);
+}
+
+function setupNavigation(e) {
+  if (e.matches) {
+    // is mobile
+    navContent.setAttribute('inert', '');
+    navContent.style.transition = 'none';
+  } else {
+    // is tablet/desktop
+    closeMobileNavigation();
+    navContent.removeAttribute('inert');
+  }
+}
+setupNavigation(media);
+
+openNavButton.addEventListener('click', openMobileNavigation);
+closeNavButton.addEventListener('click', closeMobileNavigation);
+
+media.addEventListener('change', function (e) {
+  setupNavigation(e);
+})
+
 const postsContainer = document.querySelector(".js-posts-wrapper");
 const loadMoreButton = document.querySelector("#load-more-btn");
 
@@ -152,20 +197,20 @@ const renderPosts = (data) => {
   postsContainer.innerHTML = list;
 }
 
-hamburgerButton.addEventListener('click', () => {
+// hamburgerButton.addEventListener('click', () => {
 
-  if (hamburgerButton.classList.contains('active')) {
-    hamburgerButton.classList.remove("active");
+//   if (hamburgerButton.classList.contains('active')) {
+//     hamburgerButton.classList.remove("active");
 
-    menuContent.classList.remove("fade-in");
-    menuContent.classList.add("fade-out");
+//     menuContent.classList.remove("fade-in");
+//     menuContent.classList.add("fade-out");
 
-    body.classList.remove("disable-scrolling");
-  } else {
-    hamburgerButton.classList.add("active");
-    menuContent.classList.remove("fade-out")
-    menuContent.classList.add("fade-in");
+//     body.classList.remove("disable-scrolling");
+//   } else {
+//     hamburgerButton.classList.add("active");
+//     menuContent.classList.remove("fade-out")
+//     menuContent.classList.add("fade-in");
 
-    body.classList.add("disable-scrolling");
-  }
-})
+//     body.classList.add("disable-scrolling");
+//   }
+// })
