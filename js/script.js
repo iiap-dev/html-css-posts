@@ -186,8 +186,7 @@ loadMoreButton.addEventListener("click", (e) => {
 
 const renderPosts = (data) => {
   let list = data.map(item => `
-    <div class="posts-wrapper__post post spacing">
-      <div class="post__id stretch">Post #${item.id}</div>
+    <div class="posts__item post ">
       <div class="post__content">
           <h2>${item.title}</h2>
           <p>${item.body}</p>
@@ -196,21 +195,3 @@ const renderPosts = (data) => {
   `).join(" ")
   postsContainer.innerHTML = list;
 }
-
-// hamburgerButton.addEventListener('click', () => {
-
-//   if (hamburgerButton.classList.contains('active')) {
-//     hamburgerButton.classList.remove("active");
-
-//     menuContent.classList.remove("fade-in");
-//     menuContent.classList.add("fade-out");
-
-//     body.classList.remove("disable-scrolling");
-//   } else {
-//     hamburgerButton.classList.add("active");
-//     menuContent.classList.remove("fade-out")
-//     menuContent.classList.add("fade-in");
-
-//     body.classList.add("disable-scrolling");
-//   }
-// })
