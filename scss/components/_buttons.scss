@@ -1,0 +1,42 @@
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
+.button {
+  width: 100%;
+  padding: rem(3) 0;
+  border-radius: 2px;
+  border-width: 2px;
+  border-style: solid;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  text-align: center;
+
+  @include font(rem(16), 500, rem(26));
+
+  &--primary {
+    background-color: var(--color-blue-2);
+    border-color: var(--color-blue-2);
+    color: var(--color-white);
+
+    &.small {
+      @include font(rem(12), 500, rem(18));
+    }
+
+    &:hover {
+      background-color: transparent;
+      color: var(--color-blue-2);
+    }
+  }
+
+  &--secondary {
+    background-color: transparent;
+    border-color: var(--color-blue-3);
+    color: var(--color-blue-3);
+
+    &:hover {
+      background-color: var(--color-blue-3);
+      color: var(--color-white);
+    }
+  }
+}

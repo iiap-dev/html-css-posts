@@ -15,29 +15,10 @@
   }
 
   &__action-button {
-    padding: rem(2) 0;
-    border-radius: rem(2);
-    border: 2px solid var(--color-blue-2);
-    background-color: var(--color-blue-2);
-    color: var(--color-white);
-    text-align: center;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
+      max-width: rem(160);
 
-    @include font(rem(12), 500, rem(18));
-
-    @include query('mobile') {
-      min-width: rem(140);
-    }
-
-    @include query('tablet-up') {
-      min-width: rem(160);
-    }
-
-    &:hover {
-      background-color: transparent;
-      color: var(--color-blue-2);
+    @include query('small-mobile') {
+      display: none;
     }
   }
 }

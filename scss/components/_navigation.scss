@@ -32,6 +32,9 @@
 
   &__content {
     @include query('mobile') {
+      display: flex;
+      flex-direction: column;
+      gap: rem(100);
       position: fixed;
       inset: 0;
       padding: rem(18) rem(16);
@@ -42,9 +45,23 @@
     }
   }
 
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   &__close {
     display: block;
-    margin-bottom: rem(100);
+  }
+
+  &__action-button {
+    display: none;
+    max-width: rem(160);
+
+    @include query('small-mobile') {
+      display: block;
+    }
   }
 
   &__items {

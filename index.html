@@ -15,13 +15,16 @@
 			<div class="container header__wrapper">
 				<nav class="navigation">
 					<span id="nav-label" hidden>Navigation</span>
-					<button class="navigation__open js-nav-open" aria-expanded="false" aria-labelledby="nav-label">
+					<button class="navigation__open js-nav-open" aria-expanded="true" aria-labelledby="nav-label">
 						<img src="/resources/images/hamburger.svg" alt="" width="40" height="24">
 					</button>
 					<div class="navigation__content js-nav-content" role="dialog" aria-labelledby="nav-label">
-						<button class="navigation__close js-nav-close" aria-label="Close">
-							<img src="/resources/images/close.svg" alt="" width="28" height="27">
-						</button>
+						<div class="navigation__buttons">
+							<button class="navigation__close js-nav-close" aria-label="Close">
+								<img src="/resources/images/close.svg" alt="" width="28" height="27">
+							</button>
+							<a href="#" class="navigation__action-button button button--primary small">Buy Now</a>
+						</div>
 						<ul class="navigation__items">
 							<li class="navigation__item"><a class="navigation__anchor" href="#">Home</a></li>
 							<li class="navigation__item"><a class="navigation__anchor" href="#">About</a></li>
@@ -32,23 +35,26 @@
 				<a href="/" class="header__logo">
 					<img src="/resources/images/logo.svg" alt="Landie Home">
 				</a>
-				<a href="#" class="header__action-button">Buy Now</a>
+				<a href="#" class="header__action-button button button--primary small">Buy Now</a>
 			</div>
 		</header>
 		<main>
-			<section class="hero">
+			<section class="hero container">
 				<div class="hero__content">
-					<h1>Introduce Your Product Quickly & Effectively</h1>
-					<p>
-						Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-						Cum
-						sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-						mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-					</p>
-					<div>
-						<a href="#">Purchase UI Kit</a>
-						<a href="#">Learn More</a>
+					<h1 class="hero__heading">Introduce Your Product Quickly & Effectively</h1>
+					<div class="hero__description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+							Cum
+							sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+						</p>
+						<p>mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis
+							enim.</p>
 					</div>
+				</div>
+				<div class="hero__actions">
+					<a class="hero__button button button--primary" href="#">Purchase UI Kit</a>
+					<a class="hero__button button button--secondary" href="#">Learn More</a>
 				</div>
 			</section>
 			<section>
