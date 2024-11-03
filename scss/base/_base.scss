@@ -50,12 +50,70 @@ ul {
 img {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
 .container {
-  width: min(100% - rem(32), rem(1110));
+  max-width: var(--container-max-width);
   margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.bleeding-container {
+  & > .bleeding-image {
+    &:first-child {
+      grid-column: 1 / 3;
+    }
+
+    &:last-child {
+      // grid-column: 3 / -1;
+      grid-column: 4 / -1;
+    }
+  }
+
+  & > .bleeding-content {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    padding-inline: var(--container-padding-x);
+
+    @include query('tablet-up') {
+      padding-top: rem(70); // use clamp
+    }
+
+    &:first-child {
+      // grid-column: 2 / 3;
+      grid-column: 2 / 4;
+
+      @include query('tablet-up') {
+        padding-left: 0;
+      }
+    }
+
+    &:last-child {
+      grid-column: 3 / 4;
+
+      @include query('tablet-up') {
+        padding-right: 0;
+      }
+    }
+  }
+
+  @include query('tablet-up') {
+    display: grid;
+    grid-template-columns:
+      minmax(var(--container-padding-x), 1fr)
+      minmax(0, calc(var(--container-max-width) / 3))
+      minmax(0, calc(calc(var(--container-max-width) - rem(100)) / 3))
+      minmax(0, calc(var(--container-max-width) / 3))
+      minmax(var(--container-padding-x), 1fr);
+  }
+
+  @include query('desktop') {
+    max-width: rem(1440);
+    margin-inline: auto;
+  }
 }
 
 .disable-scroll {

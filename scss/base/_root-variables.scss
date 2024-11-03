@@ -1,6 +1,10 @@
 @use '../abstracts/index' as abstracts;
+@use "../abstracts/functions" as fns;
 
 :root {
   @include abstracts.root-vars(abstracts.$font-families, 'font');
   @include abstracts.root-vars(abstracts.$colors, 'color');
+
+  --container-padding-x: #{fns.rem(16)};
+  --container-max-width: #{fns.rem(1110)};
 }

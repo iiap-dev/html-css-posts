@@ -11,11 +11,11 @@
 
 <body>
 	<div id="app">
-		<header class="header">
-			<div class="container header__wrapper">
+		<header class="header container">
+			<div class="header__wrapper">
 				<nav class="navigation">
 					<span id="nav-label" hidden>Navigation</span>
-					<button class="navigation__open js-nav-open" aria-expanded="true" aria-labelledby="nav-label">
+					<button class="navigation__open js-nav-open" aria-expanded="false" aria-labelledby="nav-label">
 						<img src="/resources/images/hamburger.svg" alt="" width="40" height="24">
 					</button>
 					<div class="navigation__content js-nav-content" role="dialog" aria-labelledby="nav-label">
@@ -39,8 +39,8 @@
 			</div>
 		</header>
 		<main>
-			<section class="hero container">
-				<div class="hero__content">
+			<section class="hero bleeding-container">
+				<div class="hero__content bleeding-content">
 					<h1 class="hero__heading">Introduce Your Product Quickly & Effectively</h1>
 					<div class="hero__description">
 						<p>
@@ -52,10 +52,13 @@
 							enim.</p>
 					</div>
 				</div>
-				<div class="hero__actions">
+				<div class="hero__image-wrapper bleeding-image">
+					<img src="/resources/images/hero-pattern.svg" alt="">
+				</div>
+				<!-- <div class="hero__actions">
 					<a class="hero__button button button--primary" href="#">Purchase UI Kit</a>
 					<a class="hero__button button button--secondary" href="#">Learn More</a>
-				</div>
+				</div> -->
 			</section>
 			<section>
 				<div class="container">
