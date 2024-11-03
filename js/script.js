@@ -186,12 +186,10 @@ loadMoreButton.addEventListener("click", (e) => {
 
 const renderPosts = (data) => {
   let list = data.map(item => `
-    <div class="posts__item post ">
-      <div class="post__content">
-          <h2>${item.title}</h2>
-          <p>${item.body}</p>
-      </div>
-    </div>
+    <article class="posts__item single-post">
+      <h4 class="single-post__heading">${item.title}</h4>
+      <p class="single-post__description">${item.body}</p>
+    </article>
   `).join(" ")
   postsContainer.innerHTML = list;
 }

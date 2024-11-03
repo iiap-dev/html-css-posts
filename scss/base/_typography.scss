@@ -7,13 +7,10 @@ h1 {
   letter-spacing: rem(1);
 }
 
-
-
-h2 {
-  font-size: clamp(rem(24), 1.323943661971831rem + 0.7511737089201878vw, rem(32));
+h4 {
+  font-size: clamp(rem(18), 1.0369718309859155rem + 0.3755868544600939vw, rem(22));
   font-weight: 500;
-  line-height: 1.32;
-  letter-spacing: rem(1);
+  line-height: 1.4;
 }
 
 p {
