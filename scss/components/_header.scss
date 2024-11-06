@@ -3,6 +3,10 @@
 @use '../abstracts/mixins' as *;
 
 .header {
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+
   &__wrapper {
     display: flex;
     align-items: center;
@@ -15,7 +19,7 @@
   }
 
   &__action-button {
-      max-width: rem(160);
+    max-width: rem(160);
 
     @include query('small-mobile') {
       display: none;
