@@ -5,6 +5,7 @@
   height: calc(100vh + rem(65));
   position: relative;
   margin-top: rem(-65);
+  overflow: hidden;
 
   &::after {
     content: '';

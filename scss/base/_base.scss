@@ -71,6 +71,10 @@ img {
     &:last-child {
       // grid-column: 3 / -1;
       grid-column: 4 / -1;
+
+      @include query('desktop') {
+        grid-row: 2/-1;
+      }
     }
   }
 
