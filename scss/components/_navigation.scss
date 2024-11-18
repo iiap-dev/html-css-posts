@@ -57,10 +57,10 @@
 
   &__action-button {
     display: none;
-    max-width: rem(160);
+    min-width: rem(160);
 
     @include query('small-mobile') {
-      display: block;
+      display: inline-block;
     }
   }
 

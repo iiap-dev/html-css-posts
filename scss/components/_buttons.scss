@@ -2,7 +2,6 @@
 @use '../abstracts/mixins' as *;
 
 .button {
-  width: 100%;
   padding: rem(3) 0;
   border-radius: 2px;
   border-width: 2px;
@@ -23,6 +22,10 @@
       @include font(rem(12), 500, rem(18));
     }
 
+    &.big {
+      padding: rem(6) 0;
+    }
+
     &:hover {
       background-color: transparent;
       color: var(--color-blue-2);
@@ -33,6 +36,14 @@
     background-color: transparent;
     border-color: var(--color-blue-3);
     color: var(--color-blue-3);
+
+    &.small {
+      @include font(rem(12), 500, rem(18));
+    }
+
+    &.big {
+      padding: rem(6) 0;
+    }
 
     &:hover {
       background-color: var(--color-blue-3);

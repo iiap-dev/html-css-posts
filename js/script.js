@@ -77,6 +77,7 @@ function setupNavigation(e) {
     navContent.removeAttribute('inert');
   }
 }
+
 setupNavigation(media);
 
 openNavButton.addEventListener('click', openMobileNavigation);
@@ -86,35 +87,108 @@ media.addEventListener('change', function (e) {
   setupNavigation(e);
 })
 
-const postsContainer = document.querySelector(".js-posts-wrapper");
-const loadMoreButton = document.querySelector("#load-more-btn");
+const postsContainer = document.querySelector('.js-posts-wrapper');
+const loadMoreButton = document.querySelector('.js-load-more-button');
 
 const params = new URLSearchParams(window.location.search);
 let pageParam = params.get('page');
 
-const digitsRegex = /\d+/g;
+const digitsRegex = /^(|-?\d+)$/;
 
-const minPostsPerPage = 6;
-const pageByDefault = 1;
+const postsPerPage = 6;
+const firstPage = 1;
 
-const fetchPosts = (page) => {
-  fetch(`https://jsonplaceholder.typicode.com/posts`)
-    .then((response => response.json()))
-    .then(json => onLoad(json, page))
+let lastPage;
+
+const fetchPosts = async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await response.json();
+  window.localStorage.setItem('posts', JSON.stringify(data));
+};
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  fetchPosts();
+
+  const posts = localStorage.getItem('posts');
+  const formattedPosts = JSON.parse(posts);
+
+  lastPage = Math.ceil(formattedPosts.length / postsPerPage);
+
+  init(formattedPosts);
+})
+
+const init = (data) => {
+  const validatedPage = validatePageParam(pageParam);
+
+  if (!validatedPage) {
+    window.history.pushState(null, null, '/');
+    return renderPosts(data.slice(0, postsPerPage));
+  }
+
+  if (validatedPage == firstPage) {
+    return renderPosts(data.slice(0, postsPerPage));
+  }
+
+  if (validatedPage == lastPage) {
+    window.history.pushState(null, null, `?page=${validatedPage}`);
+
+    loadMoreButton.classList.add("hide")
+    return renderPosts(data.slice(0, validatedPage * postsPerPage));
+  }
+
+  window.history.pushState(null, null, `?page=${validatedPage}`);
+  return renderPosts(data.slice(0, validatedPage * postsPerPage));
 }
 
-fetchPosts(pageParam);
+const handleClick = (e) => {
+  e.preventDefault();
 
-const validatePageParam = (data, page) => {
+  const posts = localStorage.getItem('posts');
+  const formattedPosts = JSON.parse(posts);
+
   const params = new URLSearchParams(window.location.search);
-  const isPagePassed = params.has('page');
+  const page = params.get('page');
 
-  const lastPage = Math.ceil(data.length / minPostsPerPage);
-  const isDigit = isPagePassed && !!page.match(digitsRegex);
-  const isNegative = isPagePassed && page < 1;
+  const validatedPage = validatePageParam(page);
 
-  if (!isDigit || isNegative || (pageParam && false)) {
-    return '/'
+  if (!validatedPage || validatedPage == firstPage) {
+    window.history.pushState(null, null, `?page=${firstPage + 1}`);
+    return renderPosts(formattedPosts.slice(0, (firstPage + 1) * postsPerPage));
+  }
+
+  if (validatedPage == (lastPage - 1)) {
+    window.history.pushState(null, null, `?page=${lastPage}`)
+
+    loadMoreButton.classList.add("hide")
+    return renderPosts(formattedPosts.slice(0, lastPage * postsPerPage));
+  }
+
+  window.history.pushState(null, null, `?page=${parseFloat(validatedPage) + 1}`);
+  renderPosts(formattedPosts.slice(0, (parseFloat(validatedPage) + 1) * postsPerPage));
+}
+loadMoreButton.addEventListener("click", (e) => handleClick(e));
+
+const renderPosts = (data) => {
+  let list = data.map(item => `
+    <article class="posts__item single-post">
+      <h4 class="single-post__heading">${item.title}</h4>
+      <p class="single-post__description">${item.body}</p>
+      <p class="single-post__number">Post #${item.id}</p>
+    </article>
+  `).join(" ")
+  postsContainer.innerHTML = list;
+}
+
+const validatePageParam = (page) => {
+  if (!page) {
+    return;
+  }
+
+  const isPageNumeric = !!page.match(digitsRegex);
+
+  if (page < 1 || !isPageNumeric) {
+    return;
   }
 
   if (pageParam > lastPage) {
@@ -122,74 +196,4 @@ const validatePageParam = (data, page) => {
   }
 
   return page;
-}
-
-const onLoad = (fetchedData, page) => {
-  const validatedPage = validatePageParam(fetchedData, page);
-  const lastPage = Math.ceil(fetchedData.length / minPostsPerPage);
-
-  const params = new URLSearchParams(window.location.search);
-
-  if (!params.has('page')) {
-    renderPosts(fetchedData.slice(0, minPostsPerPage));
-    return fetchedData.slice(0, validatedPage * minPostsPerPage);
-  }
-
-  if (validatedPage === '/') {
-    window.history.pushState(null, null, validatedPage);
-    renderPosts(fetchedData.slice(0, minPostsPerPage));
-    pageParam = pageByDefault;
-    return fetchedData.slice(0, validatedPage * minPostsPerPage);
-  }
-
-  if (validatedPage === lastPage) {
-    window.history.pushState(null, null, `?page=${validatedPage}`);
-    renderPosts(fetchedData.slice(0, validatedPage * minPostsPerPage));
-    loadMoreButton.classList.add("hide")
-    return fetchedData.slice(0, validatedPage * minPostsPerPage);
-  }
-
-  onLoadMore(fetchedData, validatedPage)
-}
-
-const onLoadMore = (fetchedData, currentPage) => {
-  renderPosts(fetchedData.slice(0, currentPage * minPostsPerPage));
-
-  // TODO replace with computed value
-  if (currentPage === '17') return loadMoreButton.classList.add("hide")
-  return fetchedData.slice(0, currentPage * minPostsPerPage);
-}
-
-loadMoreButton.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  const formatPageParam = parseFloat(pageParam);
-
-  if (!pageParam) {
-    window.history.pushState(null, null, `?page=${pageByDefault + 1}`);
-  } else {
-    window.history.pushState('', '', `?page=${formatPageParam + 1}`);
-  }
-
-  const params = new URLSearchParams(window.location.search);
-  pageParam = params.get('page');
-
-  // TODO replace 17 with computed value
-  if (pageParam === '17') {
-    fetchPosts(pageParam)
-    loadMoreButton.classList.add("hide")
-  } else {
-    fetchPosts(pageParam)
-  }
-
-})
-
-const renderPosts = (data) => {
-  let list = data.map(item => `
-    <article class="posts__item single-post">
-      <h4 class="single-post__heading">${item.title}</h4>
-      <p class="single-post__description">${item.body}</p>
-    </article>
-  `).join(" ")
-  postsContainer.innerHTML = list;
 }

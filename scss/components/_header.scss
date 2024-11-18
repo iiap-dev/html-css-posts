@@ -19,7 +19,8 @@
   }
 
   &__action-button {
-    max-width: rem(160);
+    display: inline-block;
+    min-width: rem(160);
 
     @include query('small-mobile') {
       display: none;
