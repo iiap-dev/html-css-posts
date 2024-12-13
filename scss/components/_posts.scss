@@ -14,7 +14,7 @@
     --gap: #{rem(32)};
   }
 
-  @include query('mobile') {
+  @include query('small-mobile') {
     --columns-count: 1;
     --gap: #{rem(20)};
   }

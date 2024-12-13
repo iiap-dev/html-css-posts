@@ -60,7 +60,21 @@
 					<img src="/resources/images/hero-pattern.svg" alt="">
 				</div>
 			</section>
+			<div class="container use-cases">
+				<h4>Edge cases:</h4>
+				<a href="/?page=-5" class="button button--primary small">Negative page param</a>
+				<a href="/?page=word" class="button button--primary small">Non-numerical page param</a>
+				<a href="/?page=" class="button button--primary small">Page param without value</a>
+				<a href="/?page=30" class="button button--primary small">Non-existing page</a>
+			</div>
+			<!-- <div class="container use-cases">
+				<h4>Cases on the first load:</h4>
+				<a href="/?page=1" target="_blank" class="button button--secondary small">First page => render 6 posts</a>
+				<a href="/?page=17" target="_blank" class="button button--secondary small">Last page => render all posts</a>
+				<a href="/?page=5" target="_blank" class="button button--secondary small">Page #5 => render 30 posts</a>
+			</div> -->
 			<section class="container">
+				<input class="js-search-input" type="search" placeholder="e.g. lorem, quo, alias, word">
 				<div class="posts">
 					<div class="posts__wrapper js-posts-wrapper"></div>
 					<div class="posts__action">

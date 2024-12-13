@@ -45,7 +45,7 @@ const navContent = document.querySelector('.js-nav-content');
 const main = document.querySelector('main');
 const body = document.querySelector('body');
 
-function openMobileNavigation() {
+const openMobileNavigation = () => {
   openNavButton.setAttribute('aria-expanded', 'true');
   navContent.removeAttribute('inert');
   navContent.removeAttribute('style');
@@ -54,7 +54,7 @@ function openMobileNavigation() {
   closeNavButton.focus();
 }
 
-function closeMobileNavigation() {
+const closeMobileNavigation = () => {
   openNavButton.setAttribute('aria-expanded', 'false');
   navContent.setAttribute('inert', '');
   main.removeAttribute('inert');
@@ -66,7 +66,7 @@ function closeMobileNavigation() {
   }, 400);
 }
 
-function setupNavigation(e) {
+const setupNavigation = (e) => {
   if (e.matches) {
     // is mobile
     navContent.setAttribute('inert', '');
@@ -99,6 +99,15 @@ const postsPerPage = 6;
 const firstPage = 1;
 
 let lastPage;
+let renderedPosts = [];
+
+const debounce = (func, delay) => {
+  let timeoutId;
+  return () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(func, delay);
+  };
+}
 
 const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -197,3 +206,69 @@ const validatePageParam = (page) => {
 
   return page;
 }
+
+const searchInput = document.querySelector('.js-search-input');
+// const test = postsContainer.querySelectorAll('.single-post');
+
+searchInput.addEventListener('input', debounce(() => {
+  handleInput(searchInput.value);
+}, 250));
+
+const handleInput = (searchTerm) => {
+  // window.history.pushState(null, null, `&search=${searchTerm}`)
+  const posts = postsContainer.querySelectorAll('.single-post');
+
+  posts.forEach(item => {
+    if (!item.innerText.includes(searchTerm)) {
+      console.info(item);
+      item.style.display = 'none';
+    }
+
+    if (!searchTerm) {
+      console.info('input cleared');
+      item.style.display = 'grid';
+    }
+  });
+
+  if (!searchTerm) {
+    return;
+  }
+
+  const currentParams = new URLSearchParams(window.location.search);
+  console.info(currentParams);
+
+  currentParams.set('search', searchTerm);
+
+  console.info(currentParams);
+
+  window.history.pushState(null, null, currentParams);
+
+  // note kinda works
+  // const searchParams = url.searchParams;
+
+  // params.set('search', searchTerm);
+  // url.search = params.toString();
+  // console.info(url.search);
+
+  // console.info(url.search);
+  // window.history.pushState(null, null, url.search);
+
+  // TODO show empty state when there are no search results
+  // TODO clear input on page reload
+  // TODO restore initial page state when input gets cleared - DONE
+}
+
+/**
+ * var url = new URL('http://demourl.com/path?id=100');
+var search_params = url.searchParams;
+
+// add "topic" parameter
+search_params.set('topic', 'main');
+
+url.search = search_params.toString();
+
+var new_url = url.toString();
+
+// output : http://demourl.com/path?id=100&topic=main
+console.log(new_url);
+ */
