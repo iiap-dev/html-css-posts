@@ -54,10 +54,27 @@ img {
   height: auto;
 }
 
+.button,
+button {
+  cursor: pointer;
+}
+
 .container {
   max-width: var(--container-max-width);
   margin-inline: auto;
   padding-inline: var(--container-padding-x);
+
+  &.use-cases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(12);
+    margin-top: rem(24);
+
+    .button {
+      padding-left: rem(12);
+      padding-right: rem(12);
+    }
+  }
 }
 
 .bleeding-container {
@@ -115,7 +132,7 @@ img {
       minmax(0, calc(calc(var(--container-max-width) - rem(100)) / 3))
       minmax(0, calc(var(--container-max-width) / 3))
       minmax(var(--container-padding-x), 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: 0.5fr 1fr 1fr;
   }
 
   @include query('desktop') {

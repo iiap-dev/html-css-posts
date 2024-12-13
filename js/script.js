@@ -45,7 +45,7 @@ const navContent = document.querySelector('.js-nav-content');
 const main = document.querySelector('main');
 const body = document.querySelector('body');
 
-function openMobileNavigation() {
+const openMobileNavigation = () => {
   openNavButton.setAttribute('aria-expanded', 'true');
   navContent.removeAttribute('inert');
   navContent.removeAttribute('style');
@@ -54,7 +54,7 @@ function openMobileNavigation() {
   closeNavButton.focus();
 }
 
-function closeMobileNavigation() {
+const closeMobileNavigation = () => {
   openNavButton.setAttribute('aria-expanded', 'false');
   navContent.setAttribute('inert', '');
   main.removeAttribute('inert');
@@ -66,7 +66,7 @@ function closeMobileNavigation() {
   }, 400);
 }
 
-function setupNavigation(e) {
+const setupNavigation = (e) => {
   if (e.matches) {
     // is mobile
     navContent.setAttribute('inert', '');
@@ -77,6 +77,7 @@ function setupNavigation(e) {
     navContent.removeAttribute('inert');
   }
 }
+
 setupNavigation(media);
 
 openNavButton.addEventListener('click', openMobileNavigation);
@@ -86,35 +87,117 @@ media.addEventListener('change', function (e) {
   setupNavigation(e);
 })
 
-const postsContainer = document.querySelector(".js-posts-wrapper");
-const loadMoreButton = document.querySelector("#load-more-btn");
+const postsContainer = document.querySelector('.js-posts-wrapper');
+const loadMoreButton = document.querySelector('.js-load-more-button');
 
 const params = new URLSearchParams(window.location.search);
 let pageParam = params.get('page');
 
-const digitsRegex = /\d+/g;
+const digitsRegex = /^(|-?\d+)$/;
 
-const minPostsPerPage = 6;
-const pageByDefault = 1;
+const postsPerPage = 6;
+const firstPage = 1;
 
-const fetchPosts = (page) => {
-  fetch(`https://jsonplaceholder.typicode.com/posts`)
-    .then((response => response.json()))
-    .then(json => onLoad(json, page))
+let lastPage;
+let renderedPosts = [];
+
+const debounce = (func, delay) => {
+  let timeoutId;
+  return () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(func, delay);
+  };
 }
 
-fetchPosts(pageParam);
+const fetchPosts = async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await response.json();
+  window.localStorage.setItem('posts', JSON.stringify(data));
+};
 
-const validatePageParam = (data, page) => {
+
+window.addEventListener('DOMContentLoaded', () => {
+  fetchPosts();
+
+  const posts = localStorage.getItem('posts');
+  const formattedPosts = JSON.parse(posts);
+
+  lastPage = Math.ceil(formattedPosts.length / postsPerPage);
+
+  init(formattedPosts);
+})
+
+const init = (data) => {
+  const validatedPage = validatePageParam(pageParam);
+
+  if (!validatedPage) {
+    window.history.pushState(null, null, '/');
+    return renderPosts(data.slice(0, postsPerPage));
+  }
+
+  if (validatedPage == firstPage) {
+    return renderPosts(data.slice(0, postsPerPage));
+  }
+
+  if (validatedPage == lastPage) {
+    window.history.pushState(null, null, `?page=${validatedPage}`);
+
+    loadMoreButton.classList.add("hide")
+    return renderPosts(data.slice(0, validatedPage * postsPerPage));
+  }
+
+  window.history.pushState(null, null, `?page=${validatedPage}`);
+  return renderPosts(data.slice(0, validatedPage * postsPerPage));
+}
+
+const handleClick = (e) => {
+  e.preventDefault();
+
+  const posts = localStorage.getItem('posts');
+  const formattedPosts = JSON.parse(posts);
+
   const params = new URLSearchParams(window.location.search);
-  const isPagePassed = params.has('page');
+  const page = params.get('page');
 
-  const lastPage = Math.ceil(data.length / minPostsPerPage);
-  const isDigit = isPagePassed && !!page.match(digitsRegex);
-  const isNegative = isPagePassed && page < 1;
+  const validatedPage = validatePageParam(page);
 
-  if (!isDigit || isNegative || (pageParam && false)) {
-    return '/'
+  if (!validatedPage || validatedPage == firstPage) {
+    window.history.pushState(null, null, `?page=${firstPage + 1}`);
+    return renderPosts(formattedPosts.slice(0, (firstPage + 1) * postsPerPage));
+  }
+
+  if (validatedPage == (lastPage - 1)) {
+    window.history.pushState(null, null, `?page=${lastPage}`)
+
+    loadMoreButton.classList.add("hide")
+    return renderPosts(formattedPosts.slice(0, lastPage * postsPerPage));
+  }
+
+  window.history.pushState(null, null, `?page=${parseFloat(validatedPage) + 1}`);
+  renderPosts(formattedPosts.slice(0, (parseFloat(validatedPage) + 1) * postsPerPage));
+}
+loadMoreButton.addEventListener("click", (e) => handleClick(e));
+
+const renderPosts = (data) => {
+  let list = data.map(item => `
+    <article class="posts__item single-post">
+      <h4 class="single-post__heading">${item.title}</h4>
+      <p class="single-post__description">${item.body}</p>
+      <p class="single-post__number">Post #${item.id}</p>
+    </article>
+  `).join(" ")
+  postsContainer.innerHTML = list;
+}
+
+const validatePageParam = (page) => {
+  if (!page) {
+    return;
+  }
+
+  const isPageNumeric = !!page.match(digitsRegex);
+
+  if (page < 1 || !isPageNumeric) {
+    return;
   }
 
   if (pageParam > lastPage) {
@@ -124,72 +207,68 @@ const validatePageParam = (data, page) => {
   return page;
 }
 
-const onLoad = (fetchedData, page) => {
-  const validatedPage = validatePageParam(fetchedData, page);
-  const lastPage = Math.ceil(fetchedData.length / minPostsPerPage);
+const searchInput = document.querySelector('.js-search-input');
+// const test = postsContainer.querySelectorAll('.single-post');
 
-  const params = new URLSearchParams(window.location.search);
+searchInput.addEventListener('input', debounce(() => {
+  handleInput(searchInput.value);
+}, 250));
 
-  if (!params.has('page')) {
-    renderPosts(fetchedData.slice(0, minPostsPerPage));
-    return fetchedData.slice(0, validatedPage * minPostsPerPage);
+const handleInput = (searchTerm) => {
+  // window.history.pushState(null, null, `&search=${searchTerm}`)
+  const posts = postsContainer.querySelectorAll('.single-post');
+
+  posts.forEach(item => {
+    if (!item.innerText.includes(searchTerm)) {
+      console.info(item);
+      item.style.display = 'none';
+    }
+
+    if (!searchTerm) {
+      console.info('input cleared');
+      item.style.display = 'grid';
+    }
+  });
+
+  if (!searchTerm) {
+    return;
   }
 
-  if (validatedPage === '/') {
-    window.history.pushState(null, null, validatedPage);
-    renderPosts(fetchedData.slice(0, minPostsPerPage));
-    pageParam = pageByDefault;
-    return fetchedData.slice(0, validatedPage * minPostsPerPage);
-  }
+  const currentParams = new URLSearchParams(window.location.search);
+  console.info(currentParams);
 
-  if (validatedPage === lastPage) {
-    window.history.pushState(null, null, `?page=${validatedPage}`);
-    renderPosts(fetchedData.slice(0, validatedPage * minPostsPerPage));
-    loadMoreButton.classList.add("hide")
-    return fetchedData.slice(0, validatedPage * minPostsPerPage);
-  }
+  currentParams.set('search', searchTerm);
 
-  onLoadMore(fetchedData, validatedPage)
+  console.info(currentParams);
+
+  window.history.pushState(null, null, currentParams);
+
+  // note kinda works
+  // const searchParams = url.searchParams;
+
+  // params.set('search', searchTerm);
+  // url.search = params.toString();
+  // console.info(url.search);
+
+  // console.info(url.search);
+  // window.history.pushState(null, null, url.search);
+
+  // TODO show empty state when there are no search results
+  // TODO clear input on page reload
+  // TODO restore initial page state when input gets cleared - DONE
 }
 
-const onLoadMore = (fetchedData, currentPage) => {
-  renderPosts(fetchedData.slice(0, currentPage * minPostsPerPage));
+/**
+ * var url = new URL('http://demourl.com/path?id=100');
+var search_params = url.searchParams;
 
-  // TODO replace with computed value
-  if (currentPage === '17') return loadMoreButton.classList.add("hide")
-  return fetchedData.slice(0, currentPage * minPostsPerPage);
-}
+// add "topic" parameter
+search_params.set('topic', 'main');
 
-loadMoreButton.addEventListener("click", (e) => {
-  e.preventDefault();
+url.search = search_params.toString();
 
-  const formatPageParam = parseFloat(pageParam);
+var new_url = url.toString();
 
-  if (!pageParam) {
-    window.history.pushState(null, null, `?page=${pageByDefault + 1}`);
-  } else {
-    window.history.pushState('', '', `?page=${formatPageParam + 1}`);
-  }
-
-  const params = new URLSearchParams(window.location.search);
-  pageParam = params.get('page');
-
-  // TODO replace 17 with computed value
-  if (pageParam === '17') {
-    fetchPosts(pageParam)
-    loadMoreButton.classList.add("hide")
-  } else {
-    fetchPosts(pageParam)
-  }
-
-})
-
-const renderPosts = (data) => {
-  let list = data.map(item => `
-    <article class="posts__item single-post">
-      <h4 class="single-post__heading">${item.title}</h4>
-      <p class="single-post__description">${item.body}</p>
-    </article>
-  `).join(" ")
-  postsContainer.innerHTML = list;
-}
+// output : http://demourl.com/path?id=100&topic=main
+console.log(new_url);
+ */
