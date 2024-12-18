@@ -1,43 +1,3 @@
-/*
---------------------------------------------------
-An assignment is to implement basic pagination with search/filter functionality.
-
-API: https://jsonplaceholder.typicode.com/posts
-
-Requirements:
-
-On initial load, app should fetch the posts from the provided API.
-User should be presented with 6 posts per load/page.
-Below the posts, there should be a "Load More" button which would load the next chunk of (6) posts.
-Whenever the "Load More" button is pressed, the URL should be updated with the query parameter "page" to denote
-the current state of the loaded posts. Only posts that belong to the current page should be loaded in the DOM.
-
-Example:
-https://example.com/?page=3 - this means that the user is on page 3 and 18 posts should be shown.
-
-Make sure that, if a user lands directly to the URL (opens it manually in the browser) with the parameter "page",
-that he's taken to the corresponding page.
-
-Effectively, https://example.com/ and https://example.com/?page=1 should be treated the same.
-
-Use cases for different URL scenarios:
-
-https://example.com/?page=-5 - clear the "page" query parameter since it's less than 1.
-https://example.com/?page=word - clear the "page" query parameter since it's invalid.
-https://example.com/?page= - clear the "page" query parameter since it's invalid.
-https://example.com/?page=30 - if we assume there are only 10 pages, update the query parameter with the biggest page number possible. In this case, parameter page would be updated from 30 to 10.
-
-If there are no more posts to load, hide the "Load More" button.
-
-Above the posts, there should be an input field which would be used to search/filter through loaded posts. Filtering should be done as the user types. Words should be case insensitive. Search term should also be tracked with a query parameter, in this case "search".
-
-Example:
-https://example.com/?page=3&search=code - show only posts (from the first 18 posts) that contain the word "code" in the title and/or body.
-
---------------------------------------------------
-*/
-
-// Write Javascript code!
 const openNavButton = document.querySelector('.js-nav-open');
 const closeNavButton = document.querySelector('.js-nav-close');
 const media = window.matchMedia('(width < 768px)');
@@ -45,7 +5,7 @@ const navContent = document.querySelector('.js-nav-content');
 const main = document.querySelector('main');
 const body = document.querySelector('body');
 
-function openMobileNavigation() {
+const openMobileNavigation = () => {
   openNavButton.setAttribute('aria-expanded', 'true');
   navContent.removeAttribute('inert');
   navContent.removeAttribute('style');
@@ -54,7 +14,7 @@ function openMobileNavigation() {
   closeNavButton.focus();
 }
 
-function closeMobileNavigation() {
+const closeMobileNavigation = () => {
   openNavButton.setAttribute('aria-expanded', 'false');
   navContent.setAttribute('inert', '');
   main.removeAttribute('inert');
@@ -66,7 +26,7 @@ function closeMobileNavigation() {
   }, 400);
 }
 
-function setupNavigation(e) {
+const setupNavigation = (e) => {
   if (e.matches) {
     // is mobile
     navContent.setAttribute('inert', '');
@@ -110,12 +70,25 @@ const fetchPosts = async () => {
 window.addEventListener('DOMContentLoaded', () => {
   fetchPosts();
 
+  const useCases = document.querySelectorAll('.js-use-case');
   const posts = localStorage.getItem('posts');
   const formattedPosts = JSON.parse(posts);
 
   lastPage = Math.ceil(formattedPosts.length / postsPerPage);
 
   init(formattedPosts);
+
+  useCases.forEach((item, index) => {
+    if (index === useCases.length - 1) {
+      item.addEventListener('click', (e) => {
+        showAlert(`${item.href} - page param is out of max pages range. It will be replaced with the biggest possible page number`)
+      })
+    } else {
+      item.addEventListener('click', (e) => {
+        showAlert(`${item.href} - page param will be removed since it's not valid`);
+      })
+    }
+  });
 })
 
 const init = (data) => {
@@ -197,3 +170,19 @@ const validatePageParam = (page) => {
 
   return page;
 }
+
+const showAlert = (message) => alert(message);
+
+const backToTopElement = document.querySelector('.js-back-to-top');
+
+const backToTop = () => {
+  if (!backToTopElement) {
+    return;
+  }
+
+  backToTopElement.addEventListener('click', () => {
+    window.scrollTo(0, 0);
+  })
+};
+
+backToTop();

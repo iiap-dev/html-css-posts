@@ -1,0 +1,29 @@
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
+.footer {
+  margin-top: rem(24);
+  background-color: var(--color-light-blue);
+  color: var(--color-blue-3);
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: rem(30);
+    padding-bottom: rem(30);
+  }
+
+  &__repo-link {
+    @include font(rem(14), 400, rem(24));
+  }
+
+  &__back-to-top {
+    cursor: pointer;
+  }
+
+  .icon-arrow {
+    width: rem(18);
+    height: rem(18);
+  }
+}

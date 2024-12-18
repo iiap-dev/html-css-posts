@@ -14,12 +14,12 @@
     --gap: #{rem(32)};
   }
 
-  @include query('mobile') {
+  @include query('small-mobile') {
     --columns-count: 1;
     --gap: #{rem(20)};
   }
 
-  margin: rem(50) 0;
+  margin-top: rem(50);
 
   &__wrapper {
     display: grid;
