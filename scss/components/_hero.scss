@@ -20,6 +20,7 @@
     grid-row: 1/-1;
     background-image: url('../../resources/images/hero-blob-pattern.svg');
     background-repeat: no-repeat;
+    background-position-y: bottom;
 
     @include query('hero-tablet-down') {
       grid-column: 2/-1;
@@ -67,5 +68,10 @@
       gap: rem(20);
       max-width: 100%;
     }
+  }
+
+  &__button {
+    display: inline-block;
+    min-width: 50%;
   }
 }
