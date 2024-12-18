@@ -1,0 +1,95 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+@use '../base/animation' as *;
+
+.navigation {
+  display: inline-flex;
+  align-items: center;
+
+  button {
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+
+    @include query('tablet-up') {
+      display: none;
+    }
+  }
+
+  &__open {
+    img {
+      width: rem(30);
+    }
+  }
+
+  &__open[aria-expanded='true'] {
+    + .navigation__content {
+      translate: 0;
+    }
+  }
+
+  &__content {
+    @include query('mobile') {
+      display: flex;
+      flex-direction: column;
+      gap: rem(100);
+      position: fixed;
+      inset: 0;
+      padding: rem(18) rem(16);
+      background-color: var(--color-white);
+      translate: -100%;
+
+      @include transition(translate, 0.4s, ease-in-out);
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__close {
+    display: block;
+  }
+
+  &__action-button {
+    display: none;
+    min-width: rem(160);
+
+    @include query('small-mobile') {
+      display: inline-block;
+    }
+  }
+
+  &__items {
+    display: flex;
+
+    @include query('mobile') {
+      flex-direction: column;
+      align-items: center;
+      gap: rem(25);
+    }
+
+    @include query('tablet-up') {
+      gap: 60px;
+    }
+  }
+
+  &__anchor {
+    @include font(rem(14), 400, rem(24));
+    @include transition(color);
+
+    color: var(--color-blue-1);
+
+    @include query('mobile') {
+      @include font(rem(18), 400, rem(27));
+    }
+
+    &:hover {
+      color: var(--color-blue-2);
+    }
+  }
+}

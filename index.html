@@ -1,63 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link rel="stylesheet" href="/dist/style.css"/>
-	<title>Title</title>
-</head>
-<body>
-<div id="app">
-	<header class="header">
-		<nav class="flex flex-justify-between flex-items-center header__nav header__nav--change-padding-x">
-			<a href="/" class="header__logo">
-				<img src="images/logo.svg" alt="Landie">
-			</a>
-			
-			<div class="header__menu hide-for-desktop "> <!-- it was a here-->
-				<div id="hamburger-btn" class="header__hamburger-btn">
-					<span></span>
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</div>
-			
-			<div class="header__links hide-for-mobile change-order">
-				<a href="#">Home</a>
-				<a href="#">About</a>
-				<a href="#">Contacts</a>
-			</div>
-			
-			<a href="#" class="button header__button hide-for-mobile">Buy Now</a>
-		</nav>
-		
-		<div id="menu-content" class="header__menu-content flex flex-column flex-justify-center">
-			<a href="#">Home</a>
-			<a href="#">About</a>
-			<a href="#">Contacts</a>
-		</div>
-	</header>
-	<section class="desktop hero">
-		<div class="desktop hero__content content">
-			<h1 class="change-font-size">Introduce Your Product Quickly & Effectively</h1>
-			<p>
-				Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
-				sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-				mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-			</p>
-			<div class="content__buttons-wrapper flex flex-column buttons-wrapper desktop-buttons">
-				<a href="#" class="button buttons-wrapper__button">Purchase UI Kit</a>
-				<a href="#" class="button buttons-wrapper__button--light">Learn More</a>
-			</div>
-		</div>
-	</section>
-	<div class="flex flex-column flex-justify-center">
-		<div id="posts-wrapper" class="posts-wrapper remove-spacing"></div>
-		<button id="load-more-btn" class="load-more-btn">Load More</button>
-	</div>
-</div>
 
-<script src="app/js/script.js"></script>
+	<link rel="stylesheet" href="/dist/style.css" />
+	<title>HTML CSS Posts</title>
+</head>
+
+<body>
+	<div id="app">
+		<header class="header container">
+			<div class="header__wrapper">
+				<nav class="navigation">
+					<span id="nav-label" hidden>Navigation</span>
+					<button class="navigation__open js-nav-open" aria-expanded="false" aria-labelledby="nav-label">
+						<img src="/resources/images/hamburger.svg" alt="" width="40" height="24">
+					</button>
+					<div class="navigation__content js-nav-content" role="dialog" aria-labelledby="nav-label">
+						<div class="navigation__buttons">
+							<button class="navigation__close js-nav-close" aria-label="Close">
+								<img src="/resources/images/close.svg" alt="" width="28" height="27">
+							</button>
+							<a href="#" class="navigation__action-button button button--primary small">Buy Now</a>
+						</div>
+						<ul class="navigation__items">
+							<li class="navigation__item"><a class="navigation__anchor" href="#">Home</a></li>
+							<li class="navigation__item"><a class="navigation__anchor" href="#">About</a></li>
+							<li class="navigation__item"><a class="navigation__anchor" href="#">Contact</a></li>
+						</ul>
+					</div>
+				</nav>
+				<a href="/" class="header__logo">
+					<img src="/resources/images/logo.svg" alt="Landie Home">
+				</a>
+				<a href="#" class="header__action-button button button--primary small">Buy Now</a>
+			</div>
+		</header>
+		<main>
+			<section class="hero bleeding-container">
+				<div class="hero__content bleeding-content">
+					<h1 class="hero__heading">Introduce Your Product Quickly & Effectively</h1>
+					<div class="hero__description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+							Cum
+							sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+						</p>
+						<p>mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis
+							enim.</p>
+					</div>
+					<div class="hero__actions">
+						<a class="hero__button button button--primary" href="#">Purchase UI Kit</a>
+						<a class="hero__button button button--secondary" href="#">Learn More</a>
+					</div>
+				</div>
+				<div class="hero__image-wrapper bleeding-image">
+					<img src="/resources/images/hero-pattern.svg" alt="">
+				</div>
+			</section>
+			<div class="container use-cases">
+				<h4>Edge cases:</h4>
+				<a href="/?page=-5" class="button button--primary small js-use-case">Negative page param</a>
+				<a href="/?page=word" class="button button--primary small js-use-case">Non-numerical page param</a>
+				<a href="/?page=" class="button button--primary small js-use-case">Page param without value</a>
+				<a href="/?page=30" class="button button--primary small js-use-case">Non-existing page</a>
+			</div>
+			<section class="container">
+				<div class="posts">
+					<div class="posts__wrapper js-posts-wrapper"></div>
+					<div class="posts__action">
+						<button class="posts__button js-load-more-button button button--secondary large">Load More</button>
+					</div>
+				</div>
+			</section>
+			<footer class="footer">
+				<div class="footer__content container">
+					<a href="https://github.com/iiap-dev/html-css-posts" target="_blank" class="footer__repo-link">See GitHub
+						repo</a>
+					<span class="footer__back-to-top js-back-to-top">
+						<svg class="icon-arrow" viewBox="0 0 20 20">
+							<path
+								d="M11 17V5.414l3.293 3.293a.999.999 0 1 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a.997.997 0 0 0 0 1.414 1 1 0 0 0 1.414 0L9 5.414V17a1 1 0 1 0 2 0"
+								fill="currentColor" />
+						</svg>
+					</span>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script src="/js/script.js"></script>
 </body>

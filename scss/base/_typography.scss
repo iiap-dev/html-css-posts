@@ -1,0 +1,19 @@
+@use '../abstracts/functions' as *;
+
+h1 {
+  font-size: clamp(rem(32), 1.6038732394366197rem + 1.6901408450704223vw, rem(50));
+  font-weight: 500;
+  line-height: 1.32;
+  letter-spacing: rem(1);
+}
+
+h4 {
+  font-size: clamp(rem(18), 1.0369718309859155rem + 0.3755868544600939vw, rem(22));
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+p {
+  font-weight: 400;
+  line-height: 1.6;
+}

@@ -1,0 +1,48 @@
+$breakpoints: (
+  'small-mobile': 'width <= 575px',
+  'small-mobile-up': 'width > 575px',
+  'mobile': 'width < 768px',
+  'tablet': 'width >= 768px && width < 1024px',
+  'tablet-up-alternative': 'width > 992px',
+  'hero-tablet-down': 'width <= 992px',
+  'tablet-up': 'width >= 768px',
+  'laptop': 'width >= 1024px && width < 1440px',
+  'laptop-up': 'width >= 1024px',
+  'laptop-down': 'width <= 1024px',
+  'desktop': 'width >= 1440px'
+);
+
+@mixin query($breakpoint) {
+  $queries: map-get($breakpoints, $breakpoint);
+
+  @if not $queries {
+    @error "No value could be retrieved from `#{$breakpoint}`. "
+    + "Please make sure it is defined in `$breakpoints` map.";
+  }
+
+  @media ($queries) {
+    @content;
+  }
+}
+
+@mixin hover-firefox {
+  @media (-moz-touch-enabled: 0) {
+    @content;
+  }
+}
+
+@mixin root-vars($map, $prefix) {
+  @each $name, $value in $map {
+    #{'--' + $prefix + '-' + $name}: $value;
+  }
+}
+
+@mixin font($font-size: null, $font-weight: null, $line-height: null, $font-family: 'Roboto') {
+  font:
+    normal #{$font-weight} #{$font-size} / #{$line-height} #{$font-family},
+    serif;
+}
+
+@mixin transition($transition: all, $duration: 0.2s, $type: ease) {
+  transition: $transition $duration $type;
+}
