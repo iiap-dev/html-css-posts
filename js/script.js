@@ -64,28 +64,32 @@ const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
   const data = await response.json();
   window.localStorage.setItem('posts', JSON.stringify(data));
+
+  return JSON.parse(localStorage.getItem('posts'));
 };
 
 
-window.addEventListener('DOMContentLoaded', () => {
-  fetchPosts();
+window.addEventListener('DOMContentLoaded', async () => {
+  const posts = await fetchPosts();
+
+  if (!posts) {
+    return;
+  }
+
+  lastPage = Math.ceil(posts.length / postsPerPage);
+
+  init(posts);
 
   const useCases = document.querySelectorAll('.js-use-case');
-  const posts = localStorage.getItem('posts');
-  const formattedPosts = JSON.parse(posts);
-
-  lastPage = Math.ceil(formattedPosts.length / postsPerPage);
-
-  init(formattedPosts);
 
   useCases.forEach((item, index) => {
     if (index === useCases.length - 1) {
       item.addEventListener('click', (e) => {
-        showAlert(`${item.href} - page param is out of max pages range. It will be replaced with the biggest possible page number`)
+        alert(`${item.href} - page param is out of max pages range. It will be replaced with the biggest possible page number`)
       })
     } else {
       item.addEventListener('click', (e) => {
-        showAlert(`${item.href} - page param will be removed since it's not valid`);
+        alert(`${item.href} - page param will be removed since it's not valid`);
       })
     }
   });
@@ -170,8 +174,6 @@ const validatePageParam = (page) => {
 
   return page;
 }
-
-const showAlert = (message) => alert(message);
 
 const backToTopElement = document.querySelector('.js-back-to-top');
 
